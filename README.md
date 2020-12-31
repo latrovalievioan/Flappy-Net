@@ -1,5 +1,5 @@
-# Pixi Boilerplate
-Takes care of loading assets and intiliazing the scene. Just drop your images and sounds, set your viewport size and start coding.
+# ⚙ PIXI Boilerplate
+This project is used as a boilerplate for tasks in the "PIXI.js" course in Booost. Takes care of loading assets and intiliazing the scene. Just drop your images and sounds, set your viewport size and start coding. This is a fork of [PIXI.js Boilerplate](https://github.com/dopamine-lab/pixi-boilerplate)
 
 Includes:
 * 📦 Bundling via Webpack
@@ -58,3 +58,5 @@ After you run the `npm run build` command, your code will be built into a single
 
 If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://mycoolserver.com`), 
 you should be able to open `http://mycoolserver.com/index.html` and play your game.
+
+🟡🟡🟡
