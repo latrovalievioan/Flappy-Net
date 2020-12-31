@@ -26,7 +26,7 @@ export default class Splash extends Scene {
 
   preload() {
     const images = {
-      gamepad: Assets.images.gamepad,
+      logo: Assets.images.logo,
     };
     const sounds = {
       
