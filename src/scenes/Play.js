@@ -1,9 +1,18 @@
 import { Sprite } from 'pixi.js';
 import Scene from './Scene';
 import gsap from 'gsap';
+import Footer from '../components/Footer';
 
 export default class Play extends Scene {
   async onCreated() {
+
+    const footer = new Footer();
+    footer.x = - window.innerWidth / 2;
+    footer.y = window.innerHeight / 2 - footer.height;
+    this.addChild(footer);
+
+    console.log(footer);
+
     // create a sprite with the gamepad asset as texture and add it to the stage
     const sprite = Sprite.from('gamepad');
 

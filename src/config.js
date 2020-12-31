@@ -14,7 +14,7 @@ export default {
     drag: false,
     pinch: true,
     decelerate: true,
-    wheel: true,
+    wheel: false,
   },
   scenes: {
     Splash: {
