@@ -5,6 +5,8 @@ export default class Footer extends Container {
   constructor() {
     super();
 
+    this.name = "footer";
+
     this._addBg();
     this._addHighlight();
     this._addLogo();

@@ -8,6 +8,13 @@ import { Container } from 'pixi.js';
  * @extends {PIXI.Container}
  */
 export default class Game extends Container {
+
+  static get events() {
+    return {
+      SWITCH_SCENE: 'switch_scene'
+    }
+  }
+
   constructor() {
     super();
 
@@ -15,16 +22,22 @@ export default class Game extends Container {
   }
 
   async start() {
-    await this.switchScene(Splash);
+    await this.switchScene(Splash, { scene: 'splash' });
     await this.currentScene.finish;
 
-    this.switchScene(Play);
+    this.switchScene(Play, { scene: 'play' });
   }
 
-  switchScene(constructor) {
+  /**
+   * @param {Function} constructor 
+   * @param {String} scene 
+   */
+  switchScene(constructor, scene) {
     this.removeChild(this.currentScene);
     this.currentScene = new constructor();
     this.addChild(this.currentScene);
+
+    this.emit(Game.events.SWITCH_SCENE, { scene });
 
     return this.currentScene.onCreated();
   }
