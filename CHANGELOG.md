@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://gitlab.com/booost/boilerplates/pixi/compare/v1.2.0...v1.2.1) (2021-01-07)
+
+
+### Bug Fixes
+
+* update spritesheets and dependencies ([1aec6da](https://gitlab.com/booost/boilerplates/pixi/commit/1aec6dafa5d7c7b5dd771ade6cb115bb7b30bba7))
+
 ## [1.2.0](https://gitlab.com/booost/boilerplates/pixi/compare/v1.1.0...v1.2.0) (2021-01-02)
 
 
