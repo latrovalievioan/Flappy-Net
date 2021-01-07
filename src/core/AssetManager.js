@@ -1,5 +1,5 @@
 import { Howl } from 'howler';
-import { Loader, Texture } from 'pixi.js';
+import { Loader, Texture, Spritesheet } from 'pixi.js';
 import config from '../config';
 
 const context = require.context('../assets', true, /\.(jpg|png|wav)$/im);
@@ -20,6 +20,7 @@ class AssetManager {
     this._assets = {};
     this._sounds = {};
     this._images = {};
+    this._spritesheets = {};
 
     this._importAssets();
   }
@@ -119,6 +120,24 @@ class AssetManager {
   }
 
   /**
+   * Creates spritesheets for animations and other purposes
+   * @param {<Array.{ image: String, data: Object }>} list 
+   */
+  prepareSpritesheets(list) {
+    const promises = list.map((item) => {
+      return new Promise((resolve) => {
+        const sheet = new Spritesheet(Texture.from(item.texture), item.data);
+        sheet.parse(() => {
+          this._spritesheets[item.texture] = sheet;
+          resolve(sheet);
+        });
+      });
+    });
+    
+    return Promise.all(promises);
+  }
+
+  /**
    * Manifest of all available images
    */
   get images() {
@@ -137,6 +156,13 @@ class AssetManager {
    */
   get assets() {
     return this._assets;
+  }
+
+  /**
+   * Manifest of all available spritesheets
+   */
+  get spritesheets() {
+    return this._spritesheets;
   }
 
   _loadSound(id, url) {
