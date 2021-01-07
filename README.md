@@ -25,6 +25,27 @@ After starting the development server with `npm start`, you can edit any files i
 and webpack will automatically recompile and reload your server (available at `http://localhost:8080`
 by default).
 
+### Scenes
+Easily switch different Scenes which are just PIXI.Containers
+```
+await this.switchScene(Splash, { scene: 'splash' });
+await this.currentScene.finish;
+
+this.switchScene(Play, { scene: 'play' });
+```
+
+### Parsing Spritesheets
+The AssetManager class has parsing and caching spritesheets internally. You can use spritesheets for animations via PIXI.AnimatedSprite.
+```
+import fire from './static/fire.json';
+
+...
+
+await Assets.prepareSpritesheets([
+  { texture: 'fire', data: fire }
+]);
+```
+
 ### Code Linter
 
 Eslint is used to ensure a unified code base. Feel free to edit the config in `.eslintrc.json` as per your needs.
