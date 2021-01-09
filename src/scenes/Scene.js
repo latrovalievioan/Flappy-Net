@@ -12,6 +12,11 @@ export default class Scene extends Container {
   constructor()
   {
     super();
+
+    /**
+     * The main application background
+     */
+    this.background = null;
   }
 
   /**

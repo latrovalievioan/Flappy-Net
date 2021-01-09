@@ -5,7 +5,7 @@ export default class Footer extends Container {
   constructor() {
     super();
 
-    this.name = "footer";
+    this.name = 'footer';
 
     this._addBg();
     this._addHighlight();
@@ -36,7 +36,7 @@ export default class Footer extends Container {
     highlight.endFill();
     this.addChild(highlight);
 
-    gsap.to(highlight.scale, { x: 0.005, duration: 1.5, ease: "circ.inOut" });
+    gsap.to(highlight.scale, { x: 0.005, duration: 1.5, ease: 'circ.inOut' });
   }
 
   /**

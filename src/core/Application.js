@@ -28,7 +28,9 @@ export default class GameApplication extends Application {
   async initGame() {
     await this.createBackground();
 
-    this.game = new Game();
+    this.game = new Game({
+      background: this.background,
+    });
     this.viewport.addChild(this.game);
 
     center(this.viewport, this.config.view);
@@ -76,7 +78,8 @@ export default class GameApplication extends Application {
      * @param  {Number} height        The updated viewport width
      */
   onResize(width = this.config.view.width, height = this.config.view.height) {
-    center(this.background, { width, height });
+    this.background.x = width / 2;
+    this.background.y = height / 2;
     this.game.onResize(width, height);
 
     if (this.config.view.centerOnResize) {
@@ -98,8 +101,11 @@ export default class GameApplication extends Application {
 
     const sprite = Sprite.from('background');
 
-    this.stage.addChildAt(sprite);
     this.background = sprite;
+    this.background.anchor.set(0.5);
+    this.background.name = 'background';
+
+    this.stage.addChildAt(sprite);
   }
 }
 
