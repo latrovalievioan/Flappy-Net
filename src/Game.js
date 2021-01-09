@@ -12,12 +12,16 @@ export default class Game extends Container {
   static get events() {
     return {
       SWITCH_SCENE: 'switch_scene'
-    }
+    };
   }
 
-  constructor() {
+  /**
+   * @param {PIXI.Sprite} background 
+   */
+  constructor({ background } = {}) {
     super();
 
+    this._background = background;
     this.currentScene = null;
   }
 
@@ -35,6 +39,7 @@ export default class Game extends Container {
   switchScene(constructor, scene) {
     this.removeChild(this.currentScene);
     this.currentScene = new constructor();
+    this.currentScene.background = this._background;
     this.addChild(this.currentScene);
 
     this.emit(Game.events.SWITCH_SCENE, { scene });

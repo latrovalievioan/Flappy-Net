@@ -34,3 +34,11 @@ export function center(element, { width, height },
   element.y = vertically ? (height / 2) - (element.height / 2) : element.y;
   /* eslint-enable no-param-reassign */
 }
+
+/**
+ * @param {Number} min 
+ * @param {Number} max 
+ */
+export function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
