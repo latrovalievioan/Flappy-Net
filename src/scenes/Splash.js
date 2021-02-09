@@ -1,13 +1,13 @@
-import Assets from '../core/AssetManager';
-import Scene from './Scene';
-import { Text } from 'pixi.js';
-import config from '../config';
+import Assets from "../core/AssetManager";
+import Scene from "./Scene";
+import { Text } from "pixi.js";
+import config from "../config";
 
 export default class Splash extends Scene {
   constructor() {
     super();
 
-    this.loadingText = new Text('0%', {
+    this.loadingText = new Text("0%", {
       fontSize: 75,
       fill: 0xffc900,
     });
@@ -21,23 +21,23 @@ export default class Splash extends Scene {
   }
 
   get finish() {
-    return new Promise((res)=>setTimeout(res, this.config.hideDelay));
+    return new Promise((res) => setTimeout(res, this.config.hideDelay));
   }
 
   preload() {
     const images = {
-      logo: Assets.images.logo,
+      bird: Assets.images.bird,
+      obsticle: Assets.images.obsticle,
     };
-    const sounds = {
-      
-    };
+    const sounds = {};
 
     return super.preload({ images, sounds });
   }
 
-  onResize(width, height) { // eslint-disable-line no-unused-vars
+  onResize(width, height) {
+    // eslint-disable-line no-unused-vars
     this.loadingText.x = width / 2;
-    this.loadingText.y = (height / 2) + 500;
+    this.loadingText.y = height / 2 + 500;
   }
 
   onLoadProgress(val) {

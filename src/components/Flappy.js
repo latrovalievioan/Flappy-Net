@@ -1,0 +1,68 @@
+import { Container, Graphics, Sprite, TilingSprite } from "pixi.js";
+import gsap from "gsap/all";
+import Bird from "./Bird";
+import ObstacleSet from "./ObstacleSet";
+
+export default class Flappy extends Container {
+  constructor() {
+    super();
+    this._startGame();
+  }
+  _startGame() {
+    this.removeChildren();
+    this._obstacles = [];
+    this._mkBird();
+    this.update();
+    this._counter = 0;
+  }
+
+  _mkBird() {
+    this._bird = null;
+    this._bird = new Bird();
+    this.addChild(this._bird);
+  }
+  _mkObstacleSet() {
+    const _obstacleSet = new ObstacleSet();
+    this.addChild(_obstacleSet);
+    this._obstacles.push(_obstacleSet);
+  }
+
+  update() {
+    if (this._counter % 100 === 0) this._mkObstacleSet();
+    this._counter++;
+    this._obstacles.forEach((set) => {
+      set.x -= 5;
+      if (set.x < -window.innerWidth) {
+        this._obstacles.shift();
+      }
+    });
+    this._detectCollision()
+      ? this._onCollision()
+      : setTimeout(() => requestAnimationFrame(this.update.bind(this)), 0);
+  }
+
+  _detectCollision() {
+    if (this._obstacles[0] == undefined) return;
+    const birdBounds = this._bird.getBounds();
+    const topColumnBounds = this._obstacles[0].obstacleTop.getBounds();
+    const botColumnBounds = this._obstacles[0].obstacleBot.getBounds();
+
+    return (
+      (birdBounds.x + birdBounds.width > topColumnBounds.x &&
+        birdBounds.x < topColumnBounds.x + topColumnBounds.width &&
+        birdBounds.y + birdBounds.height > topColumnBounds.y &&
+        birdBounds.y < topColumnBounds.y + topColumnBounds.height) ||
+      (birdBounds.x + birdBounds.width > botColumnBounds.x &&
+        birdBounds.x < botColumnBounds.x + botColumnBounds.width &&
+        birdBounds.y + birdBounds.height > botColumnBounds.y &&
+        birdBounds.y < botColumnBounds.y + botColumnBounds.height)
+    );
+  }
+
+  _onCollision() {
+    this._bird.running = false;
+    setTimeout(() => {
+      this._startGame();
+    }, 1500);
+  }
+}

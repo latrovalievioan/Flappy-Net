@@ -1,15 +1,13 @@
-import { Sprite } from 'pixi.js';
-import Scene from './Scene';
-import gsap from 'gsap';
-import Footer from '../components/Footer';
+import { Sprite } from "pixi.js";
+import Scene from "./Scene";
+import gsap from "gsap";
+import Bird from "../components/Bird";
+import Flappy from "../components/Flappy";
 
 export default class Play extends Scene {
   async onCreated() {
-
-    const footer = new Footer();
-    footer.x = - window.innerWidth / 2;
-    footer.y = window.innerHeight / 2 - footer.height;
-    this.addChild(footer);
+    const game = new Flappy();
+    this.addChild(game);
   }
 
   /**
@@ -19,7 +17,7 @@ export default class Play extends Scene {
    * @param  {Number} width  Window width
    * @param  {Number} height Window height
    */
-  onResize(width, height) { // eslint-disable-line no-unused-vars
-
+  onResize(width, height) {
+    // eslint-disable-line no-unused-vars
   }
 }
