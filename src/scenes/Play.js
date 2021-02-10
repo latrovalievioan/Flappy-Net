@@ -8,6 +8,7 @@ export default class Play extends Scene {
   async onCreated() {
     const game = new Flappy();
     this.addChild(game);
+    game.startGame();
   }
 
   /**

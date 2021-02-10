@@ -1,5 +1,6 @@
-import { Container, Graphics, Sprite } from "pixi.js";
+import { Container, Sprite } from "pixi.js";
 import gsap from "gsap";
+import Assets from "../core/AssetManager";
 
 export default class Bird extends Container {
   constructor() {
@@ -9,6 +10,7 @@ export default class Bird extends Container {
     document.addEventListener("keydown", (e) => {
       if (e.code === "Space" && this.running) {
         this._animateRise();
+        Assets.sounds.jump.play();
       }
     });
   }

@@ -2,20 +2,35 @@ import { Container, Graphics, Sprite, TilingSprite } from "pixi.js";
 import gsap from "gsap/all";
 import Bird from "./Bird";
 import ObstacleSet from "./ObstacleSet";
+import Assets from "../core/AssetManager";
+import Title from "./Title";
+import Score from "./Score";
 
 export default class Flappy extends Container {
   constructor() {
     super();
-    this._startGame();
+    this._scored = false;
   }
-  _startGame() {
+
+  startGame() {
     this.removeChildren();
+    this._mkScore();
+    this._mkTitle();
     this._obstacles = [];
     this._mkBird();
     this.update();
     this._counter = 0;
   }
 
+  _mkScore() {
+    this._score = new Score();
+    this.addChild(this._score);
+  }
+
+  _mkTitle() {
+    this._title = new Title();
+    this.addChild(this._title);
+  }
   _mkBird() {
     this._bird = null;
     this._bird = new Bird();
@@ -31,14 +46,33 @@ export default class Flappy extends Container {
     if (this._counter % 100 === 0) this._mkObstacleSet();
     this._counter++;
     this._obstacles.forEach((set) => {
-      set.x -= 5;
-      if (set.x < -window.innerWidth) {
+      set.x -= window.innerWidth * 0.003;
+      if (set.x < -window.innerWidth - this._obstacles[0].getBounds().width) {
+        this.removeChild(this._obstacles[0]);
         this._obstacles.shift();
+        setTimeout(() => (this._scored = false), 500);
+      }
+      if (
+        set.x <
+          -window.innerWidth -
+            this._obstacles[0].getBounds().width +
+            this._bird.getBounds().x &&
+        !this._scored
+      ) {
+        this._scored = true;
+        this._score.score();
       }
     });
-    this._detectCollision()
-      ? this._onCollision()
-      : setTimeout(() => requestAnimationFrame(this.update.bind(this)), 0);
+    if (
+      this._bird.getBounds().y >=
+      window.innerHeight - this._bird.getBounds().height
+    ) {
+      this._onCollision();
+    } else {
+      this._detectCollision()
+        ? this._onCollision()
+        : setTimeout(() => requestAnimationFrame(this.update.bind(this)), 0);
+    }
   }
 
   _detectCollision() {
@@ -61,8 +95,10 @@ export default class Flappy extends Container {
 
   _onCollision() {
     this._bird.running = false;
+    Assets.sounds.hit.play();
+    setTimeout(() => Assets.sounds.over.play(), 300);
     setTimeout(() => {
-      this._startGame();
-    }, 1500);
+      this.startGame();
+    }, 3500);
   }
 }
