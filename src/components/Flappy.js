@@ -71,7 +71,7 @@ export default class Flappy extends Container {
     } else {
       this._detectCollision()
         ? this._onCollision()
-        : setTimeout(() => requestAnimationFrame(this.update.bind(this)), 0);
+        : requestAnimationFrame(this.update.bind(this));
     }
   }
 
@@ -96,9 +96,11 @@ export default class Flappy extends Container {
   _onCollision() {
     this._bird.running = false;
     Assets.sounds.hit.play();
-    setTimeout(() => Assets.sounds.over.play(), 300);
     setTimeout(() => {
-      this.startGame();
-    }, 3500);
+      Assets.sounds.over.play();
+      setTimeout(() => {
+        this.startGame();
+      }, 3500);
+    }, 300);
   }
 }
