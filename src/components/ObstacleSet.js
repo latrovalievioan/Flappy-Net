@@ -15,12 +15,14 @@ export default class ObstacleSet extends Container {
     this.obstacleTop = new Obstacle(
       window.innerWidth / 2,
       -window.innerHeight / 2,
-      this._topHeight
+      this._topHeight,
+      "top"
     );
     this.obstacleBot = new Obstacle(
       window.innerWidth / 2,
       window.innerHeight / 2 - this._botHeight,
-      this._botHeight
+      this._botHeight,
+      "bot"
     );
     this.addChild(this.obstacleTop);
     this.addChild(this.obstacleBot);
