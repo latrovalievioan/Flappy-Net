@@ -1,5 +1,6 @@
 import { Container, Sprite, Text, Graphics } from "pixi.js";
 import Assets from "../core/AssetManager";
+import gsap from "gsap";
 export default class Score extends Container {
   constructor() {
     super();
@@ -51,5 +52,14 @@ export default class Score extends Container {
     this.count++;
     this._mkScore();
     this._graphics.addChild(this._scoreContainer);
+    localStorage.setItem("currentScore", this.count);
+  }
+
+  setBestScore() {
+    if (!localStorage.getItem("bestScore"))
+      localStorage.setItem("bestScore", 0);
+
+    if (localStorage.getItem("bestScore") < this.count)
+      localStorage.setItem("bestScore", this.count);
   }
 }

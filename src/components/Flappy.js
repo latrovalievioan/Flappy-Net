@@ -5,6 +5,7 @@ import ObstacleSet from "./ObstacleSet";
 import Assets from "../core/AssetManager";
 import Title from "./Title";
 import Score from "./Score";
+import EndScreen from "./EndScreen";
 
 export default class Flappy extends Container {
   constructor() {
@@ -13,6 +14,7 @@ export default class Flappy extends Container {
   }
 
   startGame() {
+    localStorage.setItem("currentScore", 0);
     this.removeChildren();
     this._mkScore();
     this._mkTitle();
@@ -94,10 +96,14 @@ export default class Flappy extends Container {
   }
 
   _onCollision() {
+    this._score.setBestScore();
     this._bird.running = false;
     Assets.sounds.hit.play();
     setTimeout(() => {
       Assets.sounds.over.play();
+      const endScreen = new EndScreen();
+      this.addChild(endScreen);
+      endScreen.endscreen();
       setTimeout(() => {
         this.startGame();
       }, 3500);

@@ -1,5 +1,4 @@
 import { Container, Graphics, Sprite } from "pixi.js";
-import gsap from "gsap";
 
 export default class Obstacle extends Container {
   constructor(x, y, h, pos) {

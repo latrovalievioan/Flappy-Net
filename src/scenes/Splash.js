@@ -30,6 +30,7 @@ export default class Splash extends Scene {
       obsticle: Assets.images.obsticle,
       title: Assets.images.title,
       score: Assets.images.score,
+      endScreen: Assets.images["best-score"],
     };
     const sounds = {
       jump: Assets.sounds.jump,
