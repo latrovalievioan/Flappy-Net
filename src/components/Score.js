@@ -6,52 +6,32 @@ export default class Score extends Container {
     super();
     this.count = 0;
     this._mkScore();
-    this._mkBackground();
-    this.addChild(this._graphics);
-    this._graphics.addChild(this._scoreContainer);
-    this._graphics.y = -window.innerHeight / 2;
-    this._graphics.x = window.innerWidth / 4;
-  }
-
-  _mkBackground() {
-    this._graphics = new Graphics();
-    this._graphics.beginFill(0x241f09);
-    this._graphics.drawRect(
-      0,
-      0,
-      this._scoreContainer.getBounds().width +
-        this._scoreContainer.getBounds().width * 0.3,
-      this._scoreContainer.getBounds().height +
-        this._scoreContainer.getBounds().height * 0.3
-    );
   }
   _mkScore() {
-    this._scoreContainer = new Container();
-    this._score = new Text("Score", {
+    const background = new Sprite.from("score");
+    background.anchor.set(0.5, 0.5);
+    background.scale.x = 0.4;
+    background.scale.y = 0.4;
+    background.y = -window.innerHeight / 2 + background.height / 2;
+    background.x = window.innerWidth / 3;
+    const score = new Text(`${this.count}`, {
       fontFamily: "Arial",
-      fontSize: 20,
-      fill: 0xf9dc5c,
-      align: "center",
-    });
-    this._score.anchor.set(-0.17, 0);
-    this._counter = new Text(`${this.count}`, {
-      fontFamily: "Arial",
-      fontSize: 30,
+      fontSize: 100,
       fill: 0xf9dc5c,
       align: "center",
       fontWeight: 800,
     });
-    this._counter.anchor.set(-1.17, -1);
-    this._scoreContainer.addChild(this._score);
-    this._scoreContainer.addChild(this._counter);
+    background.addChild(score);
+    score.anchor.set(0.5);
+    score.y = background.height / 2 - score.height / 4;
+
+    this.addChild(background);
   }
 
   score() {
     Assets.sounds.score.play();
-    this._graphics.removeChild(this._scoreContainer);
     this.count++;
     this._mkScore();
-    this._graphics.addChild(this._scoreContainer);
     localStorage.setItem("currentScore", this.count);
   }
 
