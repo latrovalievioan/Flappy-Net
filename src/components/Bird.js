@@ -53,6 +53,8 @@ export default class Bird extends Container {
       );
   }
   async _animateRise() {
+    this._fallAnimation.pause();
+    if (this._riseAnimation) this._riseAnimation.pause();
     this._riseAnimation = gsap.timeline();
     await this._riseAnimation
       .to(this._bird, {
