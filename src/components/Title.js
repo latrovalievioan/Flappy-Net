@@ -1,4 +1,5 @@
 import { Container, Sprite, Graphics } from "pixi.js";
+import config from "../config";
 export default class Title extends Container {
   constructor() {
     super();
@@ -6,7 +7,7 @@ export default class Title extends Container {
     this._mkBackground();
     this.addChild(this._graphics);
     this._graphics.addChild(this._title);
-    this._graphics.y = -window.innerHeight / 2;
+    this._graphics.y = -config.view.height / 2;
     this._graphics.x -= this._graphics.getBounds().width / 2;
   }
 

@@ -6,6 +6,8 @@ import Assets from "../core/AssetManager";
 import Title from "./Title";
 import Score from "./Score";
 import EndScreen from "./EndScreen";
+import config from "../config";
+import Feather from "./Feather";
 
 export default class Flappy extends Container {
   constructor() {
@@ -20,8 +22,22 @@ export default class Flappy extends Container {
     this._mkTitle();
     this._obstacles = [];
     this._mkBird();
+    this._mkFeathers();
     this.update();
     this._counter = 0;
+  }
+
+  _mkFeathers() {
+    document.addEventListener("keydown", (e) => {
+      console.log(this._feathers);
+      this._feathers = new Feather();
+      this.addChild(this._feathers);
+      this._feathers.x = this._bird.Xy[0];
+      this._feathers.y = this._bird.Xy[1];
+      if (e.code === "Space" && this._bird.running) {
+        this._feathers.mkFeather();
+      }
+    });
   }
 
   _mkScore() {
@@ -48,15 +64,15 @@ export default class Flappy extends Container {
     if (this._counter % 100 === 0) this._mkObstacleSet();
     this._counter++;
     this._obstacles.forEach((set) => {
-      set.x -= window.innerWidth * 0.003;
-      if (set.x < -window.innerWidth - this._obstacles[0].getBounds().width) {
+      set.x -= config.view.width * 0.003;
+      if (set.x < -config.view.width - this._obstacles[0].getBounds().width) {
         this.removeChild(this._obstacles[0]);
         this._obstacles.shift();
         setTimeout(() => (this._scored = false), 500);
       }
       if (
         set.x <
-          -window.innerWidth -
+          -config.view.width -
             this._obstacles[0].getBounds().width +
             this._bird.getBounds().x &&
         !this._scored
@@ -67,7 +83,7 @@ export default class Flappy extends Container {
     });
     if (
       this._bird.getBounds().y >=
-      window.innerHeight - this._bird.getBounds().height
+      config.view.height - this._bird.getBounds().height
     ) {
       this._onCollision();
     } else {

@@ -2,25 +2,26 @@ import { Container, Graphics, Sprite } from "pixi.js";
 import gsap from "gsap";
 import Obstacle from "./Obstacle";
 import Assets from "../core/AssetManager";
+import config from "../config";
 
 export default class ObstacleSet extends Container {
   constructor() {
     super();
     this._hole = 200;
     this._topHeight = this._randomInt();
-    this._botHeight = window.innerHeight - this._topHeight - this._hole;
+    this._botHeight = config.view.height - this._topHeight - this._hole;
     this._mkObstacles();
   }
   _mkObstacles() {
     this.obstacleTop = new Obstacle(
-      window.innerWidth / 2,
-      -window.innerHeight / 2,
+      config.view.width / 2,
+      -config.view.height / 2,
       this._topHeight,
       "top"
     );
     this.obstacleBot = new Obstacle(
-      window.innerWidth / 2,
-      window.innerHeight / 2 - this._botHeight,
+      config.view.width / 2,
+      config.view.height / 2 - this._botHeight,
       this._botHeight,
       "bot"
     );
@@ -30,7 +31,7 @@ export default class ObstacleSet extends Container {
 
   _randomInt() {
     return (
-      Math.floor(Math.random() * (window.innerHeight - this._hole - 50)) + 1
+      Math.floor(Math.random() * (config.view.height - this._hole - 50)) + 1
     );
   }
 }

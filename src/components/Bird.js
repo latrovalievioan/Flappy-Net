@@ -1,10 +1,12 @@
 import { Container, Sprite } from "pixi.js";
 import gsap from "gsap";
 import Assets from "../core/AssetManager";
+import config from "../config";
 
 export default class Bird extends Container {
   constructor() {
     super();
+    console.log(config);
     this._mkBird();
     this._animateFall();
     document.addEventListener("keydown", (e) => {
@@ -16,7 +18,7 @@ export default class Bird extends Container {
   }
   _mkBird() {
     this._bird = new Sprite.from("bird");
-    this._bird.x = -(window.innerWidth / 3);
+    this._bird.x = -(config.view.width / 3);
     this._bird.anchor.set(0.5, 0.5);
     this.addChild(this._bird);
     this.running = true;
@@ -34,7 +36,7 @@ export default class Bird extends Container {
           y: this._bird.y,
         },
         {
-          y: window.innerHeight * 0.5,
+          y: config.view.height * 0.5,
           duration: 1,
           ease: "Power1.easeIn",
         }

@@ -31,6 +31,7 @@ export default class Splash extends Scene {
       title: Assets.images.title,
       score: Assets.images.score,
       endScreen: Assets.images["best-score"],
+      feather: Assets.images.feather,
     };
     const sounds = {
       jump: Assets.sounds.jump,

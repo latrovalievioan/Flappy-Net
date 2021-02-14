@@ -1,6 +1,7 @@
 import { Container, Sprite, Text, Graphics } from "pixi.js";
 import Assets from "../core/AssetManager";
 import gsap from "gsap";
+import config from "../config";
 
 export default class EndScreen extends Container {
   constructor() {
@@ -9,8 +10,8 @@ export default class EndScreen extends Container {
 
   endscreen() {
     const endScreen = new Sprite.from("endScreen");
-    endScreen.width = window.innerWidth / 4;
-    endScreen.height = window.innerHeight / 4;
+    endScreen.width = config.view.width / 4;
+    endScreen.height = config.view.height / 4;
     endScreen.anchor.set(0.5, 0.5);
     const currentScore = new Text(`${localStorage.getItem("currentScore")}`, {
       fontFamily: "Arial",

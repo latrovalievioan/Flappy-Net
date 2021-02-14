@@ -1,6 +1,7 @@
 import { Container, Sprite, Text, Graphics } from "pixi.js";
 import Assets from "../core/AssetManager";
 import gsap from "gsap";
+import config from "../config";
 export default class Score extends Container {
   constructor() {
     super();
@@ -12,8 +13,8 @@ export default class Score extends Container {
     background.anchor.set(0.5, 0.5);
     background.scale.x = 0.4;
     background.scale.y = 0.4;
-    background.y = -window.innerHeight / 2 + background.height / 2;
-    background.x = window.innerWidth / 3;
+    background.y = -config.view.height / 2 + background.height / 2;
+    background.x = config.view.width / 3;
     const score = new Text(`${this.count}`, {
       fontFamily: "Arial",
       fontSize: 100,
