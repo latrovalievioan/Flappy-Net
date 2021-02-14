@@ -27,15 +27,12 @@ export default class Splash extends Scene {
   preload() {
     const images = {
       bird: Assets.images.bird,
-      obsticle: Assets.images.obsticle,
       title: Assets.images.title,
       score: Assets.images.score,
       endScreen: Assets.images["best-score"],
       feather: Assets.images.feather,
     };
     const sounds = {
-      jump: Assets.sounds.jump,
-      pruc: Assets.sounds.pruc,
       over: Assets.sounds["game-over"],
       hit: Assets.sounds.hit,
       score: Assets.sounds.score,
