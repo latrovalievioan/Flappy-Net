@@ -1,10 +1,18 @@
 import { Container, Sprite } from "pixi.js";
 import gsap from "gsap/all";
 
+/**
+ * @class Initializes a new instance of a EndScreen.
+ */
 export default class Feather extends Container {
   constructor() {
     super();
   }
+
+  /**
+   * @method Creates a feather from sprite.
+   * @async
+   */
   async mkFeather() {
     this._feather = new Sprite.from("feather");
     this._feather.anchor.set(0.5, 0.5);
@@ -15,6 +23,11 @@ export default class Feather extends Container {
     this.removeChild(this._feather);
   }
 
+  /**
+   * @method Animates feather's fall.
+   * @private
+   * @async
+   */
   async _animateFeatherFall() {
     const tl = gsap.timeline();
     await tl

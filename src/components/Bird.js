@@ -3,19 +3,35 @@ import gsap from "gsap";
 import Assets from "../core/AssetManager";
 import config from "../config";
 
+/**
+ * @class Initializes a new instance of a Bird.
+ */
 export default class Bird extends Container {
   constructor() {
     super();
-    console.log(config);
     this._mkBird();
     this._animateFall();
+    this._thrust();
+  }
+
+  /**
+   * Uses a bird animation method and a sound to represent a bird thrust.
+   * @method
+   * @private
+   */
+  _thrust() {
     document.addEventListener("keydown", (e) => {
       if (e.code === "Space" && this.running) {
-        this._animateRise();
+        this._animateThrust();
         Assets.sounds.wing.play();
       }
     });
   }
+  /**
+   * Creates a bird from sprite.
+   * @method
+   * @private
+   */
   _mkBird() {
     this._bird = new Sprite.from("bird");
     this._bird.x = -(config.view.width / 3);
@@ -23,10 +39,19 @@ export default class Bird extends Container {
     this.addChild(this._bird);
     this.running = true;
   }
+
+  /**
+   * @returns Bird's container current positions.
+   */
   get Xy() {
     return [this._bird.x, this._bird.y];
   }
 
+  /**
+   * Animates the bird's fall.
+   * @method
+   * @private
+   */
   async _animateFall() {
     this._fallAnimation = gsap.timeline();
     await this._fallAnimation
@@ -54,7 +79,12 @@ export default class Bird extends Container {
         "<"
       );
   }
-  async _animateRise() {
+  /**
+   * Animates the bird's thrust.
+   * @method
+   * @private
+   */
+  async _animateThrust() {
     this._fallAnimation.pause();
     if (this._riseAnimation) this._riseAnimation.pause();
     this._riseAnimation = gsap.timeline();

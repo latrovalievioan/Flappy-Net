@@ -2,11 +2,17 @@ import { Container, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
 import config from "../config";
 
+/**
+ * @class Initializes a new instance of a EndScreen.
+ */
 export default class EndScreen extends Container {
   constructor() {
     super();
   }
 
+  /**
+   * @method Creates an endscreen that shows the players current score and best score.
+   */
   endscreen() {
     const endScreen = new Sprite.from("endScreen");
     endScreen.width = config.view.width / 4;

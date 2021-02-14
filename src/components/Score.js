@@ -1,12 +1,19 @@
 import { Container, Sprite, Text, Graphics } from "pixi.js";
 import Assets from "../core/AssetManager";
 import config from "../config";
+/**
+ * @class Initializes a new instance of an Obstacle Set.
+ */
 export default class Score extends Container {
   constructor() {
     super();
     this.count = 0;
     this._mkScore();
   }
+  /**
+   * @method Generates a scoreboard.
+   * @private
+   */
   _mkScore() {
     const background = new Sprite.from("score");
     background.anchor.set(0.5, 0.5);
@@ -27,14 +34,18 @@ export default class Score extends Container {
 
     this.addChild(background);
   }
-
+  /**
+   * @method Adds 1 to current score and plays a sound.
+   */
   score() {
     Assets.sounds.score.play();
     this.count++;
     this._mkScore();
     localStorage.setItem("currentScore", this.count);
   }
-
+  /**
+   * @method Caches player's best score in local storage.
+   */
   setBestScore() {
     if (!localStorage.getItem("bestScore"))
       localStorage.setItem("bestScore", 0);

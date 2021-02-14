@@ -1,9 +1,22 @@
 import { Container, Graphics } from "pixi.js";
 
+/**
+ * @class Initializes a new instance of an Obstacle.
+ */
 export default class Obstacle extends Container {
   constructor(x, y, h, pos) {
     super();
-
+    this._mkObstacle(x, y, h, pos);
+  }
+  /**
+   * @method Draws a new obstacle.
+   * @private
+   * @param {number} x
+   * @param {number} y
+   * @param {number} h
+   * @param {number} pos
+   */
+  _mkObstacle(x, y, h, pos) {
     this._obstacle = new Graphics();
     this._obstacle.beginFill(0xf9dc5c);
     this._obstacle.drawRect(x, y, 80, h);
@@ -17,7 +30,9 @@ export default class Obstacle extends Container {
     this._obstacle.endFill();
     this.addChild(this._obstacle);
   }
-
+  /**
+   * @returns obstacle's y coordinate.
+   */
   get Y() {
     return this._obstacle.y;
   }
