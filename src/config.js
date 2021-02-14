@@ -22,6 +22,14 @@ export default {
     },
   },
   assets: {
-    root: '/',
+    root: "/",
+  },
+  events: {
+    SHOW_START: "show_start",
+    SHOW_END: "show_end",
+    GAME_START: "game_start",
+    GAME_END: "game_end",
+    HIDE_START: "hide_start",
+    HIDE_END: "hide_end",
   },
 };
