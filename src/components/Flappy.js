@@ -1,5 +1,4 @@
-import { Container, Graphics, Sprite, TilingSprite } from "pixi.js";
-import gsap from "gsap/all";
+import { Container } from "pixi.js";
 import Bird from "./Bird";
 import ObstacleSet from "./ObstacleSet";
 import Assets from "../core/AssetManager";

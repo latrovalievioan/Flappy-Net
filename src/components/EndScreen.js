@@ -1,5 +1,4 @@
-import { Container, Sprite, Text, Graphics } from "pixi.js";
-import Assets from "../core/AssetManager";
+import { Container, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
 import config from "../config";
 

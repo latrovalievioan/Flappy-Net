@@ -1,7 +1,5 @@
-import { Container, Graphics, Sprite } from "pixi.js";
-import gsap from "gsap";
+import { Container } from "pixi.js";
 import Obstacle from "./Obstacle";
-import Assets from "../core/AssetManager";
 import config from "../config";
 
 export default class ObstacleSet extends Container {

@@ -1,12 +1,5 @@
-import { Container, Graphics, Sprite, TilingSprite } from "pixi.js";
+import { Container, Sprite } from "pixi.js";
 import gsap from "gsap/all";
-import Bird from "./Bird";
-import ObstacleSet from "./ObstacleSet";
-import Assets from "../core/AssetManager";
-import Title from "./Title";
-import Score from "./Score";
-import EndScreen from "./EndScreen";
-import config from "../config";
 
 export default class Feather extends Container {
   constructor() {

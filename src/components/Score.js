@@ -1,6 +1,5 @@
 import { Container, Sprite, Text, Graphics } from "pixi.js";
 import Assets from "../core/AssetManager";
-import gsap from "gsap";
 import config from "../config";
 export default class Score extends Container {
   constructor() {

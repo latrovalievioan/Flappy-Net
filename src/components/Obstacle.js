@@ -1,4 +1,4 @@
-import { Container, Graphics, Sprite } from "pixi.js";
+import { Container, Graphics } from "pixi.js";
 
 export default class Obstacle extends Container {
   constructor(x, y, h, pos) {
