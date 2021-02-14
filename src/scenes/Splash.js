@@ -39,6 +39,7 @@ export default class Splash extends Scene {
       over: Assets.sounds["game-over"],
       hit: Assets.sounds.hit,
       score: Assets.sounds.score,
+      wing: Assets.sounds.wing,
     };
 
     return super.preload({ images, sounds });

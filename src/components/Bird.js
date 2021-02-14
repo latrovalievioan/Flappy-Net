@@ -12,7 +12,7 @@ export default class Bird extends Container {
     document.addEventListener("keydown", (e) => {
       if (e.code === "Space" && this.running) {
         this._animateRise();
-        Assets.sounds.jump.play();
+        Assets.sounds.wing.play();
       }
     });
   }
