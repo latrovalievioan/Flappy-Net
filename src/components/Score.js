@@ -8,13 +8,13 @@ export default class Score extends Container {
   constructor() {
     super();
     this.count = 0;
-    this._mkScore();
+    this._createScore();
   }
   /**
    * @method Generates a scoreboard.
    * @private
    */
-  _mkScore() {
+  _createScore() {
     const background = new Sprite.from("score");
     background.anchor.set(0.5, 0.5);
     background.scale.x = 0.4;
@@ -40,7 +40,7 @@ export default class Score extends Container {
   score() {
     Assets.sounds.score.play();
     this.count++;
-    this._mkScore();
+    this._createScore();
     localStorage.setItem("currentScore", this.count);
   }
   /**

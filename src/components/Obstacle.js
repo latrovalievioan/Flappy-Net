@@ -6,7 +6,7 @@ import { Container, Graphics } from "pixi.js";
 export default class Obstacle extends Container {
   constructor(x, y, h, pos) {
     super();
-    this._mkObstacle(x, y, h, pos);
+    this._createObstacle(x, y, h, pos);
   }
   /**
    * @method Draws a new obstacle.
@@ -16,7 +16,7 @@ export default class Obstacle extends Container {
    * @param {number} h
    * @param {number} pos -"top or bottom"
    */
-  _mkObstacle(x, y, h, pos) {
+  _createObstacle(x, y, h, pos) {
     this._obstacle = new Graphics();
     this._obstacle.beginFill(0xf9dc5c);
     this._obstacle.drawRect(x, y, 80, h);

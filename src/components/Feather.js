@@ -7,19 +7,15 @@ import config from "../config";
  * @class Initializes a new instance of a EndScreen.
  */
 export default class Feather extends Container {
-  constructor() {
-    super();
-  }
-
   /**
    * @method Creates a feather from sprite.
    * @async
    * @param {{
    * scaleMin: number
    * scaleMax: number
-   * } Object
+   * }} Object
    */
-  async mkFeather({ scaleMin, scaleMax }) {
+  async createFeather({ scaleMin, scaleMax }) {
     this._feather = new Sprite.from("feather");
     this._feather.anchor.set(0.5, 0.5);
     this.addChild(this._feather);
@@ -27,7 +23,7 @@ export default class Feather extends Container {
     this._feather.scale.x = scale;
     this._feather.scale.y = scale;
     await this._animateFeatherFall(config.feather.animation);
-    this.removeChild(this._feather);
+    this.removeChildren();
   }
 
   /**

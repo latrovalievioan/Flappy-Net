@@ -10,14 +10,14 @@ export default class ObstacleSet extends Container {
     this._hole = 200;
     this._topHeight = this._randomInt();
     this._botHeight = config.view.height - this._topHeight - this._hole;
-    this._mkObstacles();
+    this._createObstacles();
   }
 
   /**
    * @method Generates an obstacle set from two instances of Obstacle Class.
    * @private
    */
-  _mkObstacles() {
+  _createObstacles() {
     this.obstacleTop = new Obstacle(
       config.view.width / 2,
       -config.view.height / 2,

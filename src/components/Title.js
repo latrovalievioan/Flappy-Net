@@ -6,8 +6,8 @@ import config from "../config";
 export default class Title extends Container {
   constructor() {
     super();
-    this._mkTitle();
-    this._mkBackground();
+    this._createTitle();
+    this._createBackground();
     this._graphics.addChild(this._title);
     this._graphics.y = -config.view.height / 2;
     this._graphics.x -= this._graphics.getBounds().width / 2;
@@ -16,7 +16,7 @@ export default class Title extends Container {
    * @method Makes the background of the title.
    * @private
    */
-  _mkBackground() {
+  _createBackground() {
     this._graphics = new Graphics();
     this._graphics.beginFill(0x241f09);
     this._graphics.drawRect(
@@ -31,7 +31,7 @@ export default class Title extends Container {
    * @method Adds the title's text.
    * @private
    */
-  _mkTitle() {
+  _createTitle() {
     this._title = new Sprite.from("title");
     this._title.anchor.set(-0.16, -0.16);
   }
