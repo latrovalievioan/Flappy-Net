@@ -55,7 +55,7 @@ export default class Bird extends Container {
    * angle: number,
    * rotationDuration: number,
    * fallDuration: number,
-   * }} Object - from config.js
+   * } Object
    */
   async _animateFall({ angle, rotationDuration, fallDuration }) {
     this._fallAnimation = gsap.timeline();
@@ -93,7 +93,7 @@ export default class Bird extends Container {
    * rotationDuration: number
    * thrustDuration: number
    * angle: number
-   * }} Object - from config.js
+   * } Object
    */
   async _animateThrust({ amount, rotationDuration, thrustDuration, angle }) {
     this._fallAnimation.pause();

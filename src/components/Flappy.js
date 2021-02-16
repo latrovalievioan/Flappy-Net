@@ -41,7 +41,7 @@ export default class Flappy extends Container {
       this._feathers.x = this._bird.Xy[0];
       this._feathers.y = this._bird.Xy[1];
       if (e.code === "Space" && this._bird.running) {
-        this._feathers.mkFeather();
+        this._feathers.mkFeather(config.feather);
       }
     });
   }

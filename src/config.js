@@ -45,4 +45,8 @@ export default {
       fallDuration: 1,
     },
   },
+  feather: {
+    scaleMin: 0.01,
+    scaleMax: 0.06,
+  },
 };
