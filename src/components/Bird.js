@@ -22,7 +22,7 @@ export default class Bird extends Container {
   _thrust() {
     document.addEventListener("keydown", (e) => {
       if (e.code === "Space" && this.running) {
-        this._animateThrust();
+        this._animateThrust(config.bird.thrust);
         Assets.sounds.wing.play();
       }
     });
@@ -83,22 +83,27 @@ export default class Bird extends Container {
    * Animates the bird's thrust.
    * @method
    * @private
+   * @param {{
+   * amount: number
+   * duration: number
+   * angle: number
+   * }} Object
    */
-  async _animateThrust() {
+  async _animateThrust({ amount, duration, angle }) {
     this._fallAnimation.pause();
     if (this._riseAnimation) this._riseAnimation.pause();
     this._riseAnimation = gsap.timeline();
     await this._riseAnimation
       .to(this._bird, {
-        y: this._bird.y - 100,
-        duration: 0.4,
+        y: this._bird.y - amount,
+        duration: duration,
         ease: "Power1.easeOut",
       })
       .to(
         this._bird,
         {
-          angle: -20,
-          duration: 0.4,
+          angle: angle,
+          duration: duration,
           ease: "Power2.easeOut",
         },
         "<"

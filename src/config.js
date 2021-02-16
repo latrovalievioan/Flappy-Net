@@ -32,4 +32,11 @@ export default {
     HIDE_START: "hide_start",
     HIDE_END: "hide_end",
   },
+  bird: {
+    thrust: {
+      amount: 100,
+      duration: 0.4,
+      angle: -20,
+    },
+  },
 };
