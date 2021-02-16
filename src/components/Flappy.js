@@ -42,8 +42,8 @@ export default class Flappy extends Container {
       this._feathers.x = this._bird.Xy[0];
       this._feathers.y = this._bird.Xy[1];
       if (e.code === "Space" && this._bird.running) {
-        let feathersAmount = random(0, 3);
-        for (let i = 0; i < feathersAmount; i++) {
+        const feathersAmount = random(2, 4);
+        for (let i = 0; i < feathersAmount - 1; i++) {
           this._feathers.mkFeather(config.feather);
         }
       }

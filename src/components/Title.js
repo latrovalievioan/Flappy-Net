@@ -8,7 +8,6 @@ export default class Title extends Container {
     super();
     this._mkTitle();
     this._mkBackground();
-    this.addChild(this._graphics);
     this._graphics.addChild(this._title);
     this._graphics.y = -config.view.height / 2;
     this._graphics.x -= this._graphics.getBounds().width / 2;
@@ -26,6 +25,7 @@ export default class Title extends Container {
       this._title.getBounds().width + this._title.getBounds().width * 0.3,
       this._title.getBounds().height + this._title.getBounds().height * 0.3
     );
+    this.addChild(this._graphics);
   }
   /**
    * @method Adds the title's text.
