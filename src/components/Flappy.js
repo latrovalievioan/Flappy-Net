@@ -7,6 +7,7 @@ import Score from "./Score";
 import EndScreen from "./EndScreen";
 import config from "../config";
 import Feather from "./Feather";
+import { random } from "../core/utils";
 
 /**
  * @class Initializes a new instance of a Flappy game.
@@ -41,7 +42,9 @@ export default class Flappy extends Container {
       this._feathers.x = this._bird.Xy[0];
       this._feathers.y = this._bird.Xy[1];
       if (e.code === "Space" && this._bird.running) {
-        this._feathers.mkFeather(config.feather);
+        const feathersAmount = random(1, 3);
+        for (let i = 0; i < feathersAmount; i++)
+          this._feathers.mkFeather(config.feather);
       }
     });
   }
