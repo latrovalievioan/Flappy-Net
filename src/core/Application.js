@@ -1,9 +1,9 @@
-import { Sprite, Application } from 'pixi.js';
-import config from '../config';
-import Game from '../Game';
-import { Viewport } from 'pixi-viewport';
-import { center } from './utils';
-import Assets from './AssetManager';
+import { Sprite, Application } from "pixi.js";
+import config from "../config";
+import Game from "../Game";
+import { Viewport } from "pixi-viewport";
+import { center } from "./utils";
+import Assets from "./AssetManager";
 
 /**
  * Game entry point. Holds the game's viewport and responsive background
@@ -40,11 +40,11 @@ export default class GameApplication extends Application {
   }
 
   /**
-     * Initialize the game world viewport.
-     * Supports handly functions like dragging and panning on the main game stage
-     *
-     * @return {PIXI.Application}
-     */
+   * Initialize the game world viewport.
+   * Supports handly functions like dragging and panning on the main game stage
+   *
+   * @return {PIXI.Application}
+   */
   setupViewport() {
     const viewport = new Viewport({
       screenWidth: this.config.view.width,
@@ -71,12 +71,12 @@ export default class GameApplication extends Application {
   }
 
   /**
-     * Called after the browser window has been resized.
-     * Implement game specific resize logic here
-     * @param  {PIXI.Application} app The PIXI Appliaction instance
-     * @param  {Number} width         The updated viewport width
-     * @param  {Number} height        The updated viewport width
-     */
+   * Called after the browser window has been resized.
+   * Implement game specific resize logic here
+   * @param  {PIXI.Application} app The PIXI Appliaction instance
+   * @param  {Number} width         The updated viewport width
+   * @param  {Number} height        The updated viewport width
+   */
   onResize(width = this.config.view.width, height = this.config.view.height) {
     this.background.x = width / 2;
     this.background.y = height / 2;
@@ -94,18 +94,17 @@ export default class GameApplication extends Application {
    *
    */
   async createBackground() {
-    const images = { background: Assets.images.background };
+    const images = {};
 
     await Assets.load({ images });
     await Assets.prepareImages(images);
 
-    const sprite = Sprite.from('background');
+    const sprite = Sprite.from("background");
 
     this.background = sprite;
     this.background.anchor.set(0.5);
-    this.background.name = 'background';
+    this.background.name = "background";
 
     this.stage.addChildAt(sprite);
   }
 }
-

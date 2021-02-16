@@ -2,7 +2,7 @@ export default {
   view: {
     width: window.innerWidth,
     height: window.innerHeight,
-    backgroundColor: 0xffffff,
+    backgroundColor: 0x000000,
     worldWidth: 1000,
     worldHeight: 500,
     resizeTo: window,

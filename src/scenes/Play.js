@@ -1,7 +1,4 @@
-import { Sprite } from "pixi.js";
 import Scene from "./Scene";
-import gsap from "gsap";
-import Bird from "../components/Bird";
 import Flappy from "../components/Flappy";
 
 export default class Play extends Scene {
