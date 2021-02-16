@@ -35,8 +35,14 @@ export default {
   bird: {
     thrust: {
       amount: 100,
-      duration: 0.4,
+      rotationDuration: 0.4,
+      thrustDuration: 0.4,
       angle: -20,
+    },
+    fall: {
+      angle: 90,
+      rotationDuration: 0.6,
+      fallDuration: 1,
     },
   },
 };

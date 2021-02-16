@@ -10,7 +10,7 @@ export default class Bird extends Container {
   constructor() {
     super();
     this._mkBird();
-    this._animateFall();
+    this._animateFall(config.bird.fall);
     this._thrust();
   }
 
@@ -51,8 +51,13 @@ export default class Bird extends Container {
    * Animates the bird's fall.
    * @method
    * @private
+   * @param {{
+   * angle: number,
+   * rotationDuration: number,
+   * fallDuration: number,
+   * }} Object - from config.js
    */
-  async _animateFall() {
+  async _animateFall({ angle, rotationDuration, fallDuration }) {
     this._fallAnimation = gsap.timeline();
     await this._fallAnimation
       .fromTo(
@@ -62,7 +67,7 @@ export default class Bird extends Container {
         },
         {
           y: config.view.height * 0.5,
-          duration: 1,
+          duration: fallDuration,
           ease: "Power1.easeIn",
         }
       )
@@ -72,8 +77,8 @@ export default class Bird extends Container {
           angle: this._bird.angle,
         },
         {
-          angle: 90,
-          duration: 0.6,
+          angle: angle,
+          duration: rotationDuration,
           ease: "Power1.easeIn",
         },
         "<"
@@ -85,29 +90,30 @@ export default class Bird extends Container {
    * @private
    * @param {{
    * amount: number
-   * duration: number
+   * rotationDuration: number
+   * thrustDuration: number
    * angle: number
-   * }} Object
+   * }} Object - from config.js
    */
-  async _animateThrust({ amount, duration, angle }) {
+  async _animateThrust({ amount, rotationDuration, thrustDuration, angle }) {
     this._fallAnimation.pause();
     if (this._riseAnimation) this._riseAnimation.pause();
     this._riseAnimation = gsap.timeline();
     await this._riseAnimation
       .to(this._bird, {
         y: this._bird.y - amount,
-        duration: duration,
+        duration: thrustDuration,
         ease: "Power1.easeOut",
       })
       .to(
         this._bird,
         {
           angle: angle,
-          duration: duration,
+          duration: rotationDuration,
           ease: "Power2.easeOut",
         },
         "<"
       );
-    this._animateFall();
+    this._animateFall(config.bird.fall);
   }
 }
