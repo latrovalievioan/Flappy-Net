@@ -48,5 +48,17 @@ export default {
   feather: {
     scaleMin: 0.01,
     scaleMax: 0.06,
+    animation: {
+      fall: {
+        amount: "+=300",
+        minSpeed: 6,
+        maxSpeed: 1,
+      },
+      swing: {
+        amountMin: 3,
+        amountMax: 100,
+        speed: 0.7,
+      },
+    },
   },
 };
