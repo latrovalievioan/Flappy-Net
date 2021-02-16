@@ -28,7 +28,7 @@ export default class ObstacleSet extends Container {
       config.view.width / 2,
       config.view.height / 2 - this._botHeight,
       this._botHeight,
-      "bot"
+      "bottom"
     );
     this.addChild(this.obstacleTop);
     this.addChild(this.obstacleBot);

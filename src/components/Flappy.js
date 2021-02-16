@@ -24,10 +24,10 @@ export default class Flappy extends Container {
     localStorage.setItem("currentScore", 0);
     this.removeChildren();
     this._mkScore();
-    this._mkTitle();
     this._obstacles = [];
     this._mkBird();
     this._mkFeathers();
+    this._mkTitle();
     this._update();
     this._counter = 0;
   }
@@ -63,6 +63,7 @@ export default class Flappy extends Container {
    * @private
    */
   _mkTitle() {
+    this.removeChild(this._title);
     this._title = new Title();
     this.addChild(this._title);
   }
@@ -89,7 +90,10 @@ export default class Flappy extends Container {
    * @private
    */
   _update() {
-    if (this._counter % 100 === 0) this._mkObstacleSet();
+    if (this._counter % 100 === 0) {
+      this._mkObstacleSet();
+      this._mkTitle();
+    }
     this._counter++;
     this._obstacles.forEach((set) => {
       set.x -= config.view.width * 0.003;

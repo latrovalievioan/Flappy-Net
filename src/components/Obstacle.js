@@ -14,7 +14,7 @@ export default class Obstacle extends Container {
    * @param {number} x
    * @param {number} y
    * @param {number} h
-   * @param {number} pos
+   * @param {number} pos -"top or bottom"
    */
   _mkObstacle(x, y, h, pos) {
     this._obstacle = new Graphics();
