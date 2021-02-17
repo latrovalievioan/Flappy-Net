@@ -140,7 +140,7 @@ export default class Flappy extends Container {
     this._detectCollision(this._bird.body.getBounds(), [
       this._obstacles[0].obstacleTop._body.getBounds(),
       this._obstacles[0].obstacleBot._body.getBounds(),
-      this._ground,
+      this._ground._body.getBounds(),
     ])
       ? this._endGame()
       : requestAnimationFrame(() => this._update());
