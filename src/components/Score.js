@@ -17,20 +17,20 @@ export default class Score extends Container {
   _createScore() {
     const background = new Sprite.from("score");
     background.anchor.set(0.5, 0.5);
-    background.scale.x = 0.4;
-    background.scale.y = 0.4;
+    background.scale.x = 0.23;
+    background.scale.y = 0.23;
     background.y = -config.view.height / 2 + background.height / 2;
     background.x = config.view.width / 3;
     const score = new Text(`${this.count}`, {
-      fontFamily: "Arial",
-      fontSize: 100,
+      fontFamily: "Arial Black",
+      fontSize: 150,
       fill: 0xf9dc5c,
       align: "center",
       fontWeight: 800,
     });
     background.addChild(score);
     score.anchor.set(0.5);
-    score.y = background.height / 2 - score.height / 4;
+    score.y = background.height - background.height / 3;
 
     this.addChild(background);
   }

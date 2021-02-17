@@ -9,14 +9,14 @@ import { scaleSprite } from "../core/utils";
 export default class EndScreen extends Container {
   constructor() {
     super();
-    this.leftContainer = new Container();
-    this.addChild(this.leftContainer);
+    this._leftContainer = new Container();
+    this.addChild(this._leftContainer);
 
-    this.rightContainer = new Container();
-    this.addChild(this.rightContainer);
+    this._rightContainer = new Container();
+    this.addChild(this._rightContainer);
 
-    this.backgroundWidth = null;
-    this.backgroundHeight = null;
+    this._backgroundWidth = null;
+    this._backgroundHeight = null;
   }
 
   show() {
@@ -40,44 +40,48 @@ export default class EndScreen extends Container {
     background.anchor.set(0.5, 0.5);
     scaleSprite(background, config.endScreen.splitScale);
     container.addChild(background);
-    this.backgroundWidth = background.width;
-    this.backgroundHeight = background.height;
-    if (container === this.rightContainer)
-      container.x -= this.backgroundWidth / 2;
-    if (container === this.leftContainer)
-      container.x += this.backgroundWidth / 2;
+    this._backgroundWidth = background.width;
+    this._backgroundHeight = background.height;
+    if (container === this._rightContainer)
+      container.x -= this._backgroundWidth / 2;
+    if (container === this._leftContainer)
+      container.x += this._backgroundWidth / 2;
   }
-  _createLeftSide() {
-    this._createBackground(this.leftContainer, "endscreenScore");
-    this._createScore(this.leftContainer, localStorage.getItem("currentScore"));
-    this._createMask(this.leftContainer);
-  }
-  _createRightSide() {
-    this._createBackground(this.rightContainer, "endscreenBest");
-    this._createScore(this.rightContainer, localStorage.getItem("bestScore"));
-    this._createMask(this.rightContainer);
-  }
+
   _createMask(container) {
     const mask = new Graphics();
     this.addChild(mask);
     mask.beginFill(0xffffff);
-    mask.drawRect(0, 0, this.backgroundWidth, this.backgroundHeight);
-    mask.pivot.x = this.backgroundWidth / 2;
-    mask.pivot.y = this.backgroundHeight / 2;
-    if (container === this.rightContainer) mask.x += this.backgroundWidth / 2;
-    if (container === this.leftContainer) mask.x -= this.backgroundWidth / 2;
+    mask.drawRect(0, 0, this._backgroundWidth, this._backgroundHeight);
+    mask.pivot.x = this._backgroundWidth / 2;
+    mask.pivot.y = this._backgroundHeight / 2;
+    if (container === this._rightContainer) mask.x += this._backgroundWidth / 2;
+    if (container === this._leftContainer) mask.x -= this._backgroundWidth / 2;
     container.mask = mask;
   }
   _animateEndscreen() {
     const tl = gsap.timeline();
-    tl.to(this.leftContainer, {
-      x: `-=${this.backgroundWidth}`,
+    tl.to(this._leftContainer, {
+      x: `-=${this._backgroundWidth}`,
     }).to(
-      this.rightContainer,
+      this._rightContainer,
       {
-        x: `+=${this.backgroundWidth}`,
+        x: `+=${this._backgroundWidth}`,
       },
       "<"
     );
+  }
+  _createLeftSide() {
+    this._createBackground(this._leftContainer, "endscreenScore");
+    this._createScore(
+      this._leftContainer,
+      localStorage.getItem("currentScore")
+    );
+    this._createMask(this._leftContainer);
+  }
+  _createRightSide() {
+    this._createBackground(this._rightContainer, "endscreenBest");
+    this._createScore(this._rightContainer, localStorage.getItem("bestScore"));
+    this._createMask(this._rightContainer);
   }
 }
