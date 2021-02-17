@@ -14,7 +14,7 @@ export default class Ground extends Container {
   _createGround() {
     this._body = new Graphics();
     this._body.beginFill(0x000000);
-    this._body.drawRect(0, 0, 1, 1);
+    this._body.drawRect(0, 0, 0, 0);
     this._body.endFill();
     this.addChild(this._body);
   }

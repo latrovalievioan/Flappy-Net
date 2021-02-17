@@ -47,6 +47,7 @@ export default {
   },
   feather: {
     maxFeathersAmount: 3,
+    minFeathersAmount: 0,
     scaleMin: 0.01,
     scaleMax: 0.06,
     animation: {

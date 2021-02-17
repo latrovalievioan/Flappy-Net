@@ -52,8 +52,10 @@ export function random(min, max) {
 }
 
 /**
- * @method Detects collision two elements.
+ * @method Detects collision between two objects.
  * @private
+ * @param {object} elem1
+ * @param {object} elem2
  */
 export function detectCollision(elem1, elem2) {
   return (
