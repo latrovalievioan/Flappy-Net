@@ -12,6 +12,7 @@ export default class Bird extends Container {
     this._createBird();
     this._animateFall(config.bird.fall);
     this._thrust();
+    this.alive = true;
   }
 
   /**
@@ -21,7 +22,7 @@ export default class Bird extends Container {
    */
   _thrust() {
     document.addEventListener("keydown", (e) => {
-      if (e.code === "Space" && this.running) {
+      if (e.code === "Space" && this.alive) {
         this._animateThrust(config.bird.thrust);
         Assets.sounds.wing.play();
       }
@@ -33,18 +34,10 @@ export default class Bird extends Container {
    * @private
    */
   _createBird() {
-    this._bird = new Sprite.from("bird");
-    this._bird.x = -(config.view.width / 3);
-    this._bird.anchor.set(0.5, 0.5);
-    this.addChild(this._bird);
-    this.running = true;
-  }
-
-  /**
-   * @returns Bird's container current positions.
-   */
-  get Xy() {
-    return [this._bird.x, this._bird.y];
+    this.body = new Sprite.from("bird");
+    this.body.x = -(config.view.width / 3);
+    this.body.anchor.set(0.5, 0.5);
+    this.addChild(this.body);
   }
 
   /**
@@ -61,9 +54,9 @@ export default class Bird extends Container {
     this._fallAnimation = gsap.timeline();
     await this._fallAnimation
       .fromTo(
-        this._bird,
+        this.body,
         {
-          y: this._bird.y,
+          y: this.body.y,
         },
         {
           y: config.view.height * 0.5,
@@ -72,9 +65,9 @@ export default class Bird extends Container {
         }
       )
       .fromTo(
-        this._bird,
+        this.body,
         {
-          angle: this._bird.angle,
+          angle: this.body.angle,
         },
         {
           angle: angle,
@@ -100,13 +93,13 @@ export default class Bird extends Container {
     if (this._riseAnimation) this._riseAnimation.pause();
     this._riseAnimation = gsap.timeline();
     await this._riseAnimation
-      .to(this._bird, {
-        y: this._bird.y - amount,
+      .to(this.body, {
+        y: this.body.y - amount,
         duration: thrustDuration,
         ease: "Power1.easeOut",
       })
       .to(
-        this._bird,
+        this.body,
         {
           angle: angle,
           duration: rotationDuration,

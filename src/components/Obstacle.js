@@ -30,10 +30,4 @@ export default class Obstacle extends Container {
     this._obstacle.endFill();
     this.addChild(this._obstacle);
   }
-  /**
-   * @returns obstacle's y coordinate.
-   */
-  get Y() {
-    return this._obstacle.y;
-  }
 }

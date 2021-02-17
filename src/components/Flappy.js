@@ -30,15 +30,15 @@ export default class Flappy extends Container {
     this._createFeathers();
     this._createTitle();
     this._update();
-    this._counter = 0;
+    this._frameCounter = 0;
   }
 
   _createFeathersHandlerXX(e) {
     this._feathers = new Feather();
     this.addChild(this._feathers);
-    this._feathers.x = this._bird.Xy[0];
-    this._feathers.y = this._bird.Xy[1];
-    if (e.code === "Space" && this._bird.running) {
+    this._feathers.x = this._bird.body.x;
+    this._feathers.y = this._bird.body.y;
+    if (e.code === "Space" && this._bird.alive) {
       const feathersAmount = random(0, 3);
       for (let i = 0; i < feathersAmount; i++)
         this._feathers.createFeather(config.feather);
@@ -93,11 +93,11 @@ export default class Flappy extends Container {
    * @private
    */
   _update() {
-    if (this._counter % 100 === 0) {
+    if (this._frameCounter % 100 === 0) {
       this._createObstacleSet();
       this._createTitle();
     }
-    this._counter++;
+    this._frameCounter++;
     this._obstacles.forEach((set) => {
       set.x -= config.view.width * 0.003;
       if (set.x < -config.view.width - this._obstacles[0].getBounds().width) {
@@ -155,7 +155,7 @@ export default class Flappy extends Container {
    */
   _endGame() {
     this._score.setBestScore();
-    this._bird.running = false;
+    this._bird.alive = false;
     Assets.sounds.hit.play();
     document.removeEventListener("keydown", this._createFeathersHandler);
     setTimeout(() => {
