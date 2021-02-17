@@ -94,7 +94,7 @@ export default class GameApplication extends Application {
    *
    */
   async createBackground() {
-    const images = {};
+    const images = { background: Assets.images.background };
 
     await Assets.load({ images });
     await Assets.prepareImages(images);
