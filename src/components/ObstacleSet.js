@@ -12,6 +12,7 @@ export default class ObstacleSet extends Container {
     this._botHeight = config.view.height - this._topHeight - this._hole;
     this._createObstacles();
     this.x = config.view.width / 2;
+    this.scored = false;
   }
 
   move() {

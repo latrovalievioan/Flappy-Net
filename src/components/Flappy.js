@@ -8,6 +8,7 @@ import EndScreen from "./EndScreen";
 import config from "../config";
 import Feather from "./Feather";
 import { random } from "../core/utils";
+import Ground from "./Ground";
 
 /**
  * @class Initializes a new instance of a Flappy game.
@@ -24,13 +25,15 @@ export default class Flappy extends Container {
   startGame() {
     localStorage.setItem("currentScore", 0);
     this.removeChildren();
+    this._createGround();
     this._createScore();
     this._obstacles = [];
     this._createBird();
     this._createFeathers();
     this._createTitle();
+    this._createObstacleSet();
     this._update();
-    this._frameCounter = 0;
+    this._frameCounter = 1;
   }
 
   _createFeathersHandlerXX(e) {
@@ -51,6 +54,11 @@ export default class Flappy extends Container {
    */
   _createFeathers() {
     document.addEventListener("keydown", this._createFeathersHandler);
+  }
+
+  _createGround() {
+    this._ground = new Ground();
+    this.addChild(this._ground);
   }
 
   /**
@@ -107,9 +115,14 @@ export default class Flappy extends Container {
 
   _updateScore() {
     if (!this._obstacles[0]) return;
-    console.log(this._obstacles[0].x, this._bird.x);
-    if (this._obstacles[0].x < this._bird.x) {
-      // console.log("pi6ki");
+    let i = 0;
+    if (this._obstacles[i].scored && this._obstacles[1]) i = 1;
+    if (
+      this._obstacles[i].x + config.obstacle.width <
+      this._bird.x - this._bird.width
+    ) {
+      this._score.increaseScore();
+      this._obstacles[i].scored = true;
     }
   }
   /**
@@ -124,50 +137,31 @@ export default class Flappy extends Container {
     this._frameCounter++;
     this._updateObstacles();
     this._updateScore();
-    // this._obstacles.forEach((set) => {
-    //   if (
-    //     set.x <
-    //       -config.view.width -
-    //         this._obstacles[0].getBounds().width +
-    //         this._bird.getBounds().x &&
-    //     !this._scored
-    //   ) {
-    //     this._scored = true;
-    //     this._score.increaseScore();
-    //   }
-    // });
-    if (
-      this._bird.getBounds().y >=
-      config.view.height - this._bird.getBounds().height
-    ) {
-      this._endGame();
-    } else {
-      this._detectCollision()
-        ? this._endGame()
-        : requestAnimationFrame(this._update.bind(this));
-    }
+    this._detectCollision(this._bird.body.getBounds(), [
+      this._obstacles[0].obstacleTop._body.getBounds(),
+      this._obstacles[0].obstacleBot._body.getBounds(),
+      this._ground,
+    ])
+      ? this._endGame()
+      : requestAnimationFrame(() => this._update());
   }
 
   /**
    * @method Detects collision between bird and obstacle from the first obstacle set in obstacles array.
    * @private
    */
-  _detectCollision() {
-    if (this._obstacles[0] == undefined) return;
-    const birdBounds = this._bird.getBounds();
-    const topColumnBounds = this._obstacles[0].obstacleTop.getBounds();
-    const botColumnBounds = this._obstacles[0].obstacleBot.getBounds();
-
-    return (
-      (birdBounds.x + birdBounds.width > topColumnBounds.x &&
-        birdBounds.x < topColumnBounds.x + topColumnBounds.width &&
-        birdBounds.y + birdBounds.height > topColumnBounds.y &&
-        birdBounds.y < topColumnBounds.y + topColumnBounds.height) ||
-      (birdBounds.x + birdBounds.width > botColumnBounds.x &&
-        birdBounds.x < botColumnBounds.x + botColumnBounds.width &&
-        birdBounds.y + birdBounds.height > botColumnBounds.y &&
-        birdBounds.y < botColumnBounds.y + botColumnBounds.height)
-    );
+  _detectCollision(main, elems = []) {
+    let hasCollision = false;
+    elems.forEach((elem) => {
+      if (
+        main.x + main.width > elem.x + elem.width / 4 &&
+        main.x < elem.x + elem.width &&
+        main.y + main.height > elem.y &&
+        main.y < elem.y + elem.height
+      )
+        hasCollision = true;
+    });
+    return hasCollision;
   }
   /**
    * @method Handles collision.
