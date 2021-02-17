@@ -29,8 +29,9 @@ export default class Splash extends Scene {
       bird: Assets.images.bird,
       title: Assets.images.title,
       score: Assets.images.score,
-      endScreen: Assets.images["best-score"],
       feather: Assets.images.feather,
+      endscreenScore: Assets.images.endscreenScore,
+      endscreenBest: Assets.images.endscreenBest,
     };
     const sounds = {
       over: Assets.sounds["game-over"],

@@ -65,3 +65,8 @@ export function detectCollision(elem1, elem2) {
     elem1.y < elem2.y + elem2.height
   );
 }
+
+export function scaleSprite(sprite, num) {
+  sprite.scale.x = num;
+  sprite.scale.y = num;
+}

@@ -172,7 +172,7 @@ export default class Flappy extends Container {
       Assets.sounds.over.play();
       const endScreen = new EndScreen();
       this.addChild(endScreen);
-      endScreen.endscreen();
+      endScreen.show();
       setTimeout(() => {
         this.startGame();
       }, 3500);
