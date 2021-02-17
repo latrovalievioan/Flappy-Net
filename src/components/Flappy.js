@@ -8,6 +8,7 @@ import EndScreen from "./EndScreen";
 import config from "../config";
 import Feather from "./Feather";
 import { random } from "../core/utils";
+import { detectCollision } from "..core/utils";
 import Ground from "./Ground";
 
 /**
@@ -42,7 +43,7 @@ export default class Flappy extends Container {
     this._feathers.x = this._bird.x;
     this._feathers.y = this._bird.y;
     if (e.code === "Space" && this._bird.alive) {
-      const feathersAmount = random(0, 3);
+      const feathersAmount = random(0, config.feather.maxFeathersAmount);
       for (let i = 0; i < feathersAmount; i++)
         this._feathers.createFeather(config.feather);
     }
@@ -137,32 +138,24 @@ export default class Flappy extends Container {
     this._frameCounter++;
     this._updateObstacles();
     this._updateScore();
-    this._detectCollision(this._bird.body.getBounds(), [
-      this._obstacles[0].obstacleTop._body.getBounds(),
-      this._obstacles[0].obstacleBot._body.getBounds(),
-      this._ground._body.getBounds(),
-    ])
-      ? this._endGame()
-      : requestAnimationFrame(() => this._update());
+    if (
+      detectCollision(
+        this._bird.body.getBounds(),
+        this._obstacles[0].obstacleTop._body.getBounds()
+      ) ||
+      detectCollision(
+        this._bird.body.getBounds(),
+        this._obstacles[0].obstacleBot._body.getBounds()
+      ) ||
+      detectCollision(
+        this._bird.body.getBounds(),
+        this._ground._body.getBounds()
+      )
+    )
+      this._endGame();
+    else requestAnimationFrame(() => this._update());
   }
 
-  /**
-   * @method Detects collision between bird and obstacle from the first obstacle set in obstacles array.
-   * @private
-   */
-  _detectCollision(main, elems = []) {
-    let hasCollision = false;
-    elems.forEach((elem) => {
-      if (
-        main.x + main.width > elem.x + elem.width / 4 &&
-        main.x < elem.x + elem.width &&
-        main.y + main.height > elem.y &&
-        main.y < elem.y + elem.height
-      )
-        hasCollision = true;
-    });
-    return hasCollision;
-  }
   /**
    * @method Handles collision.
    * @private

@@ -7,15 +7,20 @@
  * @param {Boolean} [ignoreRatio = true]
  * @param {Boolean} [overscale = false] - if true the scaled elememnt may have scale bigger then 1
  */
-export function fit(element, { width, height }, ignoreRatio = false, overscale = false) {
+export function fit(
+  element,
+  { width, height },
+  ignoreRatio = false,
+  overscale = false
+) {
   const wScale = width / element.width;
   const hScale = height / element.height;
   const max = overscale ? Infinity : 1;
   const scale = Math.min(wScale, hScale, max);
 
   /* eslint-disable no-param-reassign */
-  element.scale.x *= (ignoreRatio ? wScale : scale);
-  element.scale.y *= (ignoreRatio ? hScale : scale);
+  element.scale.x *= ignoreRatio ? wScale : scale;
+  element.scale.y *= ignoreRatio ? hScale : scale;
   /* eslint-enable no-param-reassign */
 }
 
@@ -27,18 +32,34 @@ export function fit(element, { width, height }, ignoreRatio = false, overscale =
  * @param {Boolean} vertically
  * @param {Boolean} horizontally
  */
-export function center(element, { width, height },
-  { vertically = true, horizontally = true } = {}) {
+export function center(
+  element,
+  { width, height },
+  { vertically = true, horizontally = true } = {}
+) {
   /* eslint-disable no-param-reassign */
-  element.x = horizontally ? (width / 2) - (element.width / 2) : element.x;
-  element.y = vertically ? (height / 2) - (element.height / 2) : element.y;
+  element.x = horizontally ? width / 2 - element.width / 2 : element.x;
+  element.y = vertically ? height / 2 - element.height / 2 : element.y;
   /* eslint-enable no-param-reassign */
 }
 
 /**
- * @param {Number} min 
- * @param {Number} max 
+ * @param {Number} min
+ * @param {Number} max
  */
 export function random(min, max) {
   return Math.random() * (max - min) + min;
+}
+
+/**
+ * @method Detects collision two elements.
+ * @private
+ */
+export function detectCollision(elem1, elem2) {
+  return (
+    elem1.x + elem1.width > elem2.x + elem2.width / 4 &&
+    elem1.x < elem2.x + elem2.width &&
+    elem1.y + elem1.height > elem2.y &&
+    elem1.y < elem2.y + elem2.height
+  );
 }
