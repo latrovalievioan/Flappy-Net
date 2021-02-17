@@ -88,6 +88,10 @@ export default class Flappy extends Container {
     this.addChild(_obstacleSet);
     this._obstacles.push(_obstacleSet);
   }
+
+  _moveObstacles() {
+    this._obstacles.forEach((set) => set.move());
+  }
   /**
    * @method Represents the game's ticker.
    * @private
@@ -98,24 +102,25 @@ export default class Flappy extends Container {
       this._createTitle();
     }
     this._frameCounter++;
-    this._obstacles.forEach((set) => {
-      set.x -= config.view.width * 0.003;
-      if (set.x < -config.view.width - this._obstacles[0].getBounds().width) {
-        this.removeChild(this._obstacles[0]);
-        this._obstacles.shift();
-        setTimeout(() => (this._scored = false), 500);
-      }
-      if (
-        set.x <
-          -config.view.width -
-            this._obstacles[0].getBounds().width +
-            this._bird.getBounds().x &&
-        !this._scored
-      ) {
-        this._scored = true;
-        this._score.score();
-      }
-    });
+    this._moveObstacles();
+    // this._obstacles.forEach((set) => {
+    //   set.move();
+    //   if (set.x < -config.view.width - this._obstacles[0].getBounds().width) {
+    //     this.removeChild(this._obstacles[0]);
+    //     this._obstacles.shift();
+    //     setTimeout(() => (this._scored = false), 500);
+    //   }
+    //   if (
+    //     set.x <
+    //       -config.view.width -
+    //         this._obstacles[0].getBounds().width +
+    //         this._bird.getBounds().x &&
+    //     !this._scored
+    //   ) {
+    //     this._scored = true;
+    //     this._score.increaseScore();
+    //   }
+    // });
     if (
       this._bird.getBounds().y >=
       config.view.height - this._bird.getBounds().height

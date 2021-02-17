@@ -8,7 +8,7 @@ export default class Title extends Container {
     super();
     this._createTitle();
     this._createBackground();
-    this._graphics.addChild(this._title);
+    this._graphics.addChild(this._body);
     this._graphics.y = -config.view.height / 2;
     this._graphics.x -= this._graphics.getBounds().width / 2;
   }
@@ -22,8 +22,8 @@ export default class Title extends Container {
     this._graphics.drawRect(
       0,
       0,
-      this._title.getBounds().width + this._title.getBounds().width * 0.3,
-      this._title.getBounds().height + this._title.getBounds().height * 0.3
+      this._body.getBounds().width + this._body.getBounds().width * 0.3,
+      this._body.getBounds().height + this._body.getBounds().height * 0.3
     );
     this.addChild(this._graphics);
   }
@@ -32,7 +32,7 @@ export default class Title extends Container {
    * @private
    */
   _createTitle() {
-    this._title = new Sprite.from("title");
-    this._title.anchor.set(-0.16, -0.16);
+    this._body = new Sprite.from("title");
+    this._body.anchor.set(-0.16, -0.16);
   }
 }

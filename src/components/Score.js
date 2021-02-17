@@ -37,7 +37,7 @@ export default class Score extends Container {
   /**
    * @method Adds 1 to current score and plays a sound.
    */
-  score() {
+  increaseScore() {
     Assets.sounds.score.play();
     this.count++;
     this._createScore();

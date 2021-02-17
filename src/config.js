@@ -61,4 +61,7 @@ export default {
       },
     },
   },
+  obstacleSet: {
+    speed: 5,
+  },
 };

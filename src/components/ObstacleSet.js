@@ -13,6 +13,10 @@ export default class ObstacleSet extends Container {
     this._createObstacles();
   }
 
+  move() {
+    this.x -= config.obstacleSet.speed;
+  }
+
   /**
    * @method Generates an obstacle set from two instances of Obstacle Class.
    * @private
