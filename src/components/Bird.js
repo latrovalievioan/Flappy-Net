@@ -35,7 +35,6 @@ export default class Bird extends Container {
    */
   _createBird() {
     this.body = new Sprite.from("bird");
-    this.body.x = -(config.view.width / 3);
     this.body.anchor.set(0.5, 0.5);
     this.addChild(this.body);
   }
@@ -54,9 +53,9 @@ export default class Bird extends Container {
     this._fallAnimation = gsap.timeline();
     await this._fallAnimation
       .fromTo(
-        this.body,
+        this,
         {
-          y: this.body.y,
+          y: this.y,
         },
         {
           y: config.view.height * 0.5,
@@ -65,9 +64,9 @@ export default class Bird extends Container {
         }
       )
       .fromTo(
-        this.body,
+        this,
         {
-          angle: this.body.angle,
+          angle: this.angle,
         },
         {
           angle: angle,
@@ -93,13 +92,13 @@ export default class Bird extends Container {
     if (this._riseAnimation) this._riseAnimation.pause();
     this._riseAnimation = gsap.timeline();
     await this._riseAnimation
-      .to(this.body, {
-        y: this.body.y - amount,
+      .to(this, {
+        y: this.y - amount,
         duration: thrustDuration,
         ease: "Power1.easeOut",
       })
       .to(
-        this.body,
+        this,
         {
           angle: angle,
           duration: rotationDuration,

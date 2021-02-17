@@ -36,8 +36,8 @@ export default class Flappy extends Container {
   _createFeathersHandlerXX(e) {
     this._feathers = new Feather();
     this.addChild(this._feathers);
-    this._feathers.x = this._bird.body.x;
-    this._feathers.y = this._bird.body.y;
+    this._feathers.x = this._bird.x;
+    this._feathers.y = this._bird.y;
     if (e.code === "Space" && this._bird.alive) {
       const feathersAmount = random(0, 3);
       for (let i = 0; i < feathersAmount; i++)
@@ -78,6 +78,7 @@ export default class Flappy extends Container {
     this._bird = null;
     this._bird = new Bird();
     this.addChild(this._bird);
+    this._bird.x = -(config.view.width / 3);
   }
   /**
    * @method Adds a new instance of obstacles to the game.
@@ -89,8 +90,29 @@ export default class Flappy extends Container {
     this._obstacles.push(_obstacleSet);
   }
 
-  _moveObstacles() {
-    this._obstacles.forEach((set) => set.move());
+  _updateFirstObstacleSet() {
+    if (!this._obstacles[0]) return;
+    if (
+      this._obstacles[0].x >=
+      -config.view.width - this._obstacles[0].getBounds().width
+    )
+      return;
+    this.removeChild(this._obstacles[0]);
+    this._obstacles.shift();
+  }
+
+  _updateObstacles() {
+    this._obstacles.forEach((set) => {
+      set.move();
+    });
+    this._updateFirstObstacleSet();
+  }
+
+  _updateScore() {
+    if (!this._obstacles[0]) return;
+    if (this._obstacles[0].x < this._bird.body.x) {
+      console.log("pi6ki");
+    }
   }
   /**
    * @method Represents the game's ticker.
@@ -102,14 +124,9 @@ export default class Flappy extends Container {
       this._createTitle();
     }
     this._frameCounter++;
-    this._moveObstacles();
+    this._updateObstacles();
+    this._updateScore();
     // this._obstacles.forEach((set) => {
-    //   set.move();
-    //   if (set.x < -config.view.width - this._obstacles[0].getBounds().width) {
-    //     this.removeChild(this._obstacles[0]);
-    //     this._obstacles.shift();
-    //     setTimeout(() => (this._scored = false), 500);
-    //   }
     //   if (
     //     set.x <
     //       -config.view.width -
