@@ -70,6 +70,6 @@ export default {
     speed: 5,
   },
   endScreen: {
-    splitScale: 0.7,
+    splitScale: 0.6,
   },
 };

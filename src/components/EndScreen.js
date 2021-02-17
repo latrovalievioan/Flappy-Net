@@ -20,14 +20,14 @@ export default class EndScreen extends Container {
   }
 
   show() {
-    this._createLeftSide();
     this._createRightSide();
+    this._createLeftSide();
     this._animateEndscreen();
   }
   _createScore(container, scoreNum) {
     const score = new Text(scoreNum, {
       fontFamily: "Arial Black",
-      fontSize: 150,
+      fontSize: 200 * config.endScreen.splitScale,
       fill: 0x000000,
       align: "center",
     });
