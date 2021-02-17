@@ -92,10 +92,7 @@ export default class Flappy extends Container {
 
   _updateFirstObstacleSet() {
     if (!this._obstacles[0]) return;
-    if (
-      this._obstacles[0].x >=
-      -config.view.width - this._obstacles[0].getBounds().width
-    )
+    if (this._obstacles[0].x >= -config.view.width / 2 - config.obstacle.width)
       return;
     this.removeChild(this._obstacles[0]);
     this._obstacles.shift();
@@ -110,8 +107,9 @@ export default class Flappy extends Container {
 
   _updateScore() {
     if (!this._obstacles[0]) return;
-    if (this._obstacles[0].x < this._bird.body.x) {
-      console.log("pi6ki");
+    console.log(this._obstacles[0].x, this._bird.x);
+    if (this._obstacles[0].x < this._bird.x) {
+      // console.log("pi6ki");
     }
   }
   /**
