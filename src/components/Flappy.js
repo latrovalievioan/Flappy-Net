@@ -8,6 +8,7 @@ import EndScreen from "./EndScreen";
 import config from "../config";
 import Feather from "./Feather";
 import { random } from "../core/utils";
+import { delay } from "../core/utils";
 import { detectCollision } from "../core/utils";
 import Ground from "./Ground";
 
@@ -184,19 +185,17 @@ export default class Flappy extends Container {
    * @method Handles game end.
    * @private
    */
-  _endGame() {
+  async _endGame() {
     this._score.setBestScore();
     this._bird.alive = false;
     document.removeEventListener("keydown", this._createFeathersHandler);
     Assets.sounds.hit.play();
-    setTimeout(() => {
-      Assets.sounds.over.play();
-      const endScreen = new EndScreen();
-      this.addChild(endScreen);
-      endScreen.show();
-      setTimeout(() => {
-        this.startGame();
-      }, 3500);
-    }, 300);
+    await delay(Assets.sounds.hit.duration() * 1000);
+    Assets.sounds.over.play();
+    const endScreen = new EndScreen();
+    this.addChild(endScreen);
+    endScreen.show();
+    await delay(Assets.sounds.over.duration() * 1000);
+    this.startGame();
   }
 }

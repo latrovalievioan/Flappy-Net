@@ -75,3 +75,16 @@ export function scaleSprite(sprite, num) {
   sprite.scale.x = num;
   sprite.scale.y = num;
 }
+
+/**
+ * @function Alternative to setTimeout.
+ * @param {number} time - miliseconds.
+ * @returns {Promise} - can be awaited.
+ */
+export function delay(time) {
+  return new Promise((reslove) => {
+    setTimeout(() => {
+      reslove();
+    }, time);
+  });
+}
