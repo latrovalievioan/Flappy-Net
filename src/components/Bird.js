@@ -11,7 +11,6 @@ export default class Bird extends Container {
     super();
     this._createBody();
     this._animateFall(config.bird.fall);
-    this._thrust();
     /**
      * Indicates whether the bird is alive or not.
      * @type {boolean}
@@ -20,19 +19,6 @@ export default class Bird extends Container {
     this.alive = true;
   }
 
-  /**
-   * Uses a bird animation method and a sound to represent a bird thrust.
-   * @method
-   * @private
-   */
-  _thrust() {
-    document.addEventListener("keydown", (e) => {
-      if (e.code === "Space" && this.alive) {
-        this._animateThrust(config.bird.thrust);
-        Assets.sounds.wing.play();
-      }
-    });
-  }
   /**
    * Creates a bird from sprite.
    * @method

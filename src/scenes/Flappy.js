@@ -20,7 +20,7 @@ export default class Flappy extends Container {
     super();
     this.sortableChildren = true;
     this._scored = false;
-    this._createFeathersHandler = (e) => this._featherCreationHandler(e);
+    this._thrustListener = (e) => this._birdThrust(e);
     this._restartGameHandler();
   }
   /**
@@ -33,7 +33,7 @@ export default class Flappy extends Container {
     this._createGround();
     this._obstacles = [];
     this._createBird();
-    this._createFeathers();
+    this._birdThrustListener();
     this._createScore();
     this._createTitle();
     this._createObstacleSet();
@@ -42,7 +42,8 @@ export default class Flappy extends Container {
   }
 
   /**
-   *
+   *@method Restarts the game on keydon - "Space" if the bird is not alive.
+   *@private
    */
   _restartGameHandler() {
     document.addEventListener("keydown", (e) => {
@@ -51,33 +52,42 @@ export default class Flappy extends Container {
       }
     });
   }
-
   /**
-   * @method Handles feather creation.
+   * @method Creates feathers instance.
    * @private
-   * @param {KeyboardEvent}
    */
-  _featherCreationHandler(e) {
+  _createFeathers() {
     this._feathers = new Feather();
     this.addChild(this._feathers);
     this._feathers.x = this._bird.x;
     this._feathers.y = this._bird.y;
+    const feathersAmount = random(
+      config.feather.minFeathersAmount,
+      config.feather.maxFeathersAmount
+    );
+    for (let i = 0; i < feathersAmount; i++)
+      this._feathers.createFeather(config.feather);
+  }
+
+  /**
+   * @method Bird thrusts on keydown - "Space" if the bird is alive.
+   * @private
+   * @param {Event} e
+   */
+  _birdThrust(e) {
     if (e.code === "Space" && this._bird.alive) {
-      const feathersAmount = random(
-        config.feather.minFeathersAmount,
-        config.feather.maxFeathersAmount
-      );
-      for (let i = 0; i < feathersAmount; i++)
-        this._feathers.createFeather(config.feather);
+      this._createFeathers();
+      this._bird._animateThrust(config.bird.thrust);
+      Assets.sounds.wing.play();
     }
   }
 
   /**
-   * @method Adds a new instance of feathers to the game.
+   * @method Adds a new instance of feathers to the game. ?///??///???
    * @private
    */
-  _createFeathers() {
-    document.addEventListener("keydown", this._createFeathersHandler);
+  _birdThrustListener() {
+    document.addEventListener("keydown", this._thrustListener);
   }
   /**
    * @method Adds a new instance of ground to the game.
@@ -194,7 +204,7 @@ export default class Flappy extends Container {
    */
   async _endGame() {
     this._score.setBestScore();
-    document.removeEventListener("keydown", this._createFeathersHandler);
+    document.removeEventListener("keydown", this._thrustListener);
     Assets.sounds.hit.play();
     await delay(Assets.sounds.hit.duration() * 1000);
     Assets.sounds.over.play();
