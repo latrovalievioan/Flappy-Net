@@ -50,12 +50,12 @@ export default class ObstacleSet extends Container {
     this.obstacleTop = new Obstacle(
       -config.view.height / 2,
       this._topHeight,
-      "top"
+      Obstacle.positions.TOP
     );
     this.obstacleBottom = new Obstacle(
       config.view.height / 2 - this._bottomHeight,
       this._bottomHeight,
-      "bottom"
+      Obstacle.positions.BOTTOM
     );
     this.addChild(this.obstacleTop);
     this.addChild(this.obstacleBottom);
