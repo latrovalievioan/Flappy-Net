@@ -1,4 +1,4 @@
-import { Container } from "pixi.js";
+import { Container, TilingSprite } from "pixi.js";
 import Bird from "../components/Bird";
 import ObstacleSet from "../components/ObstacleSet";
 import Assets from "../core/AssetManager";
@@ -154,16 +154,15 @@ export default class Flappy extends Container {
    * @private
    */
   _updateScore() {
-    if (!this._obstacles[0]) return;
-    let i = 0;
-    if (this._obstacles[i].scored && this._obstacles[1]) i = 1;
-    if (
-      this._obstacles[i].x + config.obstacle.width <
-      this._bird.x - this._bird.width
-    ) {
-      this._score.increaseScore();
-      this._obstacles[i].scored = true;
-    }
+    this._obstacles.forEach((obstacle) => {
+      if (
+        !obstacle.scored &&
+        obstacle.x + config.obstacle.width < this._bird.x - this._bird.width
+      ) {
+        this._score.increaseScore();
+        obstacle.scored = true;
+      }
+    });
   }
   /**
    * @method Represents the game's ticker.
