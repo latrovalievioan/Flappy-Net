@@ -7,11 +7,31 @@ import config from "../config";
 export default class ObstacleSet extends Container {
   constructor() {
     super();
-    this._hole = 200;
+    /**
+     * Indicates the distance between top and bot obstacles.
+     * @type {number}
+     * @private
+     */
+    this._hole = config.obstacleSet.hole;
+    /**
+     * Indicates the height of top obstacle.
+     * @type {number}
+     * @private
+     */
     this._topHeight = this._randomInt();
+    /**
+     * Indicates the height of bottom obstacle.
+     * @type {number}
+     * @private
+     */
     this._botHeight = config.view.height - this._topHeight - this._hole;
     this._createObstacles();
     this.x = config.view.width / 2;
+    /**
+     * Indicates whether the obstacle set has been passed from the bird.
+     * @type {boolean}
+     * @public
+     */
     this.scored = false;
   }
 

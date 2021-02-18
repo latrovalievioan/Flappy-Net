@@ -7,7 +7,12 @@ import config from "../config";
 export default class Score extends Container {
   constructor() {
     super();
-    this.count = 0;
+    /**
+     * Indicates the current score.
+     * @type {number}
+     * @public
+     */
+    this.currentScore = 0;
     this._createScore();
   }
   /**
@@ -21,7 +26,7 @@ export default class Score extends Container {
     background.scale.y = 0.23;
     background.y = -config.view.height / 2 + background.height / 2;
     background.x = config.view.width / 3;
-    const score = new Text(`${this.count}`, {
+    const score = new Text(`${this.currentScore}`, {
       fontFamily: "Arial Black",
       fontSize: 150,
       fill: 0xf9dc5c,
@@ -39,9 +44,9 @@ export default class Score extends Container {
    */
   increaseScore() {
     Assets.sounds.score.play();
-    this.count++;
+    this.currentScore++;
     this._createScore();
-    localStorage.setItem("currentScore", this.count);
+    localStorage.setItem("currentScore", this.currentScore);
   }
   /**
    * @method Caches player's best score in local storage.
@@ -50,7 +55,7 @@ export default class Score extends Container {
     if (!localStorage.getItem("bestScore"))
       localStorage.setItem("bestScore", 0);
 
-    if (localStorage.getItem("bestScore") < this.count)
-      localStorage.setItem("bestScore", this.count);
+    if (localStorage.getItem("bestScore") < this.currentScore)
+      localStorage.setItem("bestScore", this.currentScore);
   }
 }

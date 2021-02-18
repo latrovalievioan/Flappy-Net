@@ -15,7 +15,17 @@ export default class EndScreen extends Container {
     this._rightContainer = new Container();
     this.addChild(this._rightContainer);
 
+    /**
+     * Indicates the container's background width.
+     * @type {number}
+     * @private
+     */
     this._backgroundWidth = null;
+    /**
+     * Indicates the container's background height.
+     * @type {number}
+     * @private
+     */
     this._backgroundHeight = null;
   }
 

@@ -8,7 +8,17 @@ export default class Ground extends Container {
   constructor() {
     super();
     this._createGround();
+    /**
+     * Indicates ground object's x position.
+     * @type {number}
+     * @public
+     */
     this.x = -config.view.width / 3;
+    /**
+     * Indicates ground object's x position.
+     * @type {number}
+     * @public
+     */
     this.y = config.view.height / 2;
   }
 

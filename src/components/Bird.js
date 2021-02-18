@@ -12,6 +12,11 @@ export default class Bird extends Container {
     this._createBody();
     this._animateFall(config.bird.fall);
     this._thrust();
+    /**
+     * Indicates whether the bird is alive or not.
+     * @type {boolean}
+     * @public
+     */
     this.alive = true;
   }
 
