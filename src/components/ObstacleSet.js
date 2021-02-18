@@ -15,6 +15,9 @@ export default class ObstacleSet extends Container {
     this.scored = false;
   }
 
+  /**
+   * @method Moves the obstacle-set container.
+   */
   move() {
     this.x -= config.obstacleSet.speed;
   }

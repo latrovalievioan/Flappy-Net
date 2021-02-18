@@ -11,6 +11,11 @@ export default class Ground extends Container {
     this.x = -config.view.width / 3;
     this.y = config.view.height / 2;
   }
+
+  /**
+   * @method Creates a new rect for ground container.
+   * @private
+   */
   _createGround() {
     this._body = new Graphics();
     this._body.beginFill(0x000000);

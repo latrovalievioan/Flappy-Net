@@ -17,8 +17,9 @@ import Ground from "./Ground";
 export default class Flappy extends Container {
   constructor() {
     super();
+    this.sortableChildren = true;
     this._scored = false;
-    this._createFeathersHandler = (e) => this._createFeathersHandlerXX(e);
+    this._createFeathersHandler = (e) => this._featherCreationHandler(e);
   }
   /**
    * @method Starts the game.
@@ -27,17 +28,22 @@ export default class Flappy extends Container {
     localStorage.setItem("currentScore", 0);
     this.removeChildren();
     this._createGround();
-    this._createScore();
     this._obstacles = [];
     this._createBird();
     this._createFeathers();
+    this._createScore();
     this._createTitle();
     this._createObstacleSet();
     this._update();
     this._frameCounter = 1;
   }
 
-  _createFeathersHandlerXX(e) {
+  /**
+   * @method Handles feather creation.
+   * @private
+   * @param {object} e - Event.
+   */
+  _featherCreationHandler(e) {
     this._feathers = new Feather();
     this.addChild(this._feathers);
     this._feathers.x = this._bird.x;
@@ -49,7 +55,7 @@ export default class Flappy extends Container {
       );
       for (let i = 0; i < feathersAmount; i++)
         this._feathers.createFeather(config.feather);
-    }
+    } else if (e.code === "Space" && !this._bird.alive) this.startGame();
   }
 
   /**
@@ -59,7 +65,10 @@ export default class Flappy extends Container {
   _createFeathers() {
     document.addEventListener("keydown", this._createFeathersHandler);
   }
-
+  /**
+   * @method Adds a new instance of ground to the game.
+   * @private
+   */
   _createGround() {
     this._ground = new Ground();
     this.addChild(this._ground);
@@ -72,6 +81,7 @@ export default class Flappy extends Container {
   _createScore() {
     this._score = new Score();
     this.addChild(this._score);
+    this._score.zIndex = 200;
   }
   /**
    * @method Adds a new instance of title to the game.
@@ -80,6 +90,7 @@ export default class Flappy extends Container {
   _createTitle() {
     this.removeChild(this._title);
     this._title = new Title();
+    this._title.zIndex = 200;
     this.addChild(this._title);
   }
   /**
@@ -98,10 +109,14 @@ export default class Flappy extends Container {
    */
   _createObstacleSet() {
     const _obstacleSet = new ObstacleSet();
+
     this.addChild(_obstacleSet);
     this._obstacles.push(_obstacleSet);
   }
-
+  /**
+   * @method Updates the first obstacle set from this._obstacles.
+   * @private
+   */
   _updateFirstObstacleSet() {
     if (!this._obstacles[0]) return;
     if (this._obstacles[0].x >= -config.view.width / 2 - config.obstacle.width)
@@ -110,13 +125,20 @@ export default class Flappy extends Container {
     this._obstacles.shift();
   }
 
-  _updateObstacles() {
+  /**
+   * @method Updates obstacle sets's positions.
+   * @private
+   */
+  _updateObstaclesPosition() {
     this._obstacles.forEach((set) => {
       set.move();
     });
     this._updateFirstObstacleSet();
   }
-
+  /**
+   * @method Updates current score when the bird passes through a obstacle set.
+   * @private
+   */
   _updateScore() {
     if (!this._obstacles[0]) return;
     let i = 0;
@@ -136,10 +158,9 @@ export default class Flappy extends Container {
   _update() {
     if (this._frameCounter % 100 === 0) {
       this._createObstacleSet();
-      this._createTitle();
     }
     this._frameCounter++;
-    this._updateObstacles();
+    this._updateObstaclesPosition();
     this._updateScore();
     if (
       detectCollision(
@@ -160,14 +181,14 @@ export default class Flappy extends Container {
   }
 
   /**
-   * @method Handles collision.
+   * @method Handles game end.
    * @private
    */
   _endGame() {
     this._score.setBestScore();
     this._bird.alive = false;
-    Assets.sounds.hit.play();
     document.removeEventListener("keydown", this._createFeathersHandler);
+    Assets.sounds.hit.play();
     setTimeout(() => {
       Assets.sounds.over.play();
       const endScreen = new EndScreen();

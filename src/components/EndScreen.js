@@ -19,11 +19,21 @@ export default class EndScreen extends Container {
     this._backgroundHeight = null;
   }
 
+  /**
+   * @method Shows the endscreen.
+   */
   show() {
     this._createRightSide();
     this._createLeftSide();
     this._animateEndscreen();
   }
+
+  /**
+   * @method Creates score text from scoreNum inside container.
+   * @private
+   * @param {object} container
+   * @param {number} scoreNum
+   */
   _createScore(container, scoreNum) {
     const score = new Text(scoreNum, {
       fontFamily: "Arial Black",
@@ -34,7 +44,12 @@ export default class EndScreen extends Container {
     score.anchor.set(0.5, 0.5);
     container.addChild(score);
   }
-
+  /**
+   * @method Creates a background for container.
+   * @private
+   * @param {object} container
+   * @param {string} spriteName
+   */
   _createBackground(container, spriteName) {
     const background = new Sprite.from(spriteName);
     background.anchor.set(0.5, 0.5);
@@ -47,7 +62,11 @@ export default class EndScreen extends Container {
     if (container === this._leftContainer)
       container.x += this._backgroundWidth / 2;
   }
-
+  /**
+   * @method Creates a mask for container.
+   * @private
+   * @param {object} container
+   */
   _createMask(container) {
     const mask = new Graphics();
     this.addChild(mask);
@@ -59,6 +78,11 @@ export default class EndScreen extends Container {
     if (container === this._leftContainer) mask.x -= this._backgroundWidth / 2;
     container.mask = mask;
   }
+
+  /**
+   * @method Animates the endscreen containers.
+   * @private
+   */
   _animateEndscreen() {
     const tl = gsap.timeline();
     tl.to(this._leftContainer, {
@@ -71,6 +95,11 @@ export default class EndScreen extends Container {
       "<"
     );
   }
+
+  /**
+   * @method Creates left side of EndScreen.
+   * @private
+   */
   _createLeftSide() {
     this._createBackground(this._leftContainer, "endscreenScore");
     this._createScore(
@@ -79,6 +108,11 @@ export default class EndScreen extends Container {
     );
     this._createMask(this._leftContainer);
   }
+
+  /**
+   * @method Creates right side of EndScreen.
+   * @private
+   */
   _createRightSide() {
     this._createBackground(this._rightContainer, "endscreenBest");
     this._createScore(this._rightContainer, localStorage.getItem("bestScore"));

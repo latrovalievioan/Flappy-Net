@@ -30,6 +30,10 @@ export default class Feather extends Container {
    * @method Animates feather's fall.
    * @private
    * @async
+   * @param {{
+   * fall: number
+   * swing: number
+   * }} Object
    */
   async _animateFeatherFall({ fall, swing }) {
     const swingAmount = random(swing.amountMin, swing.amountMax);
