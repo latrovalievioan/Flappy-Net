@@ -68,6 +68,7 @@ export default {
   },
   obstacleSet: {
     speed: 5,
+    interval: 100,
   },
   endScreen: {
     splitScale: 0.6,

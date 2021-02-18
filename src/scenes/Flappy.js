@@ -170,7 +170,7 @@ export default class Flappy extends Container {
    * @private
    */
   _update() {
-    if (this._frameCounter % 100 === 0) {
+    if (this._frameCounter % config.obstacleSet.interval === 0) {
       this._createObstacleSet();
     }
     this._frameCounter++;
