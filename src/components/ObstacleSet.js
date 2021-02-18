@@ -8,7 +8,7 @@ export default class ObstacleSet extends Container {
   constructor() {
     super();
     /**
-     * Indicates the distance between top and bot obstacles.
+     * Indicates the distance between top and bottom obstacles.
      * @type {number}
      * @private
      */
@@ -24,7 +24,7 @@ export default class ObstacleSet extends Container {
      * @type {number}
      * @private
      */
-    this._botHeight = config.view.height - this._topHeight - this._hole;
+    this._bottomHeight = config.view.height - this._topHeight - this._hole;
     this._createObstacles();
     this.x = config.view.width / 2;
     /**
@@ -52,13 +52,13 @@ export default class ObstacleSet extends Container {
       this._topHeight,
       "top"
     );
-    this.obstacleBot = new Obstacle(
-      config.view.height / 2 - this._botHeight,
-      this._botHeight,
+    this.obstacleBottom = new Obstacle(
+      config.view.height / 2 - this._bottomHeight,
+      this._bottomHeight,
       "bottom"
     );
     this.addChild(this.obstacleTop);
-    this.addChild(this.obstacleBot);
+    this.addChild(this.obstacleBottom);
   }
   /**
    * @method Generates a random int.

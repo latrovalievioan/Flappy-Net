@@ -178,7 +178,7 @@ export default class Flappy extends Container {
     this._updateScore();
     const birdBody = this._bird.body;
     const obstacleTopBody = this._obstacles[0].obstacleTop._body;
-    const obstacleBottomBody = this._obstacles[0].obstacleBot._body;
+    const obstacleBottomBody = this._obstacles[0].obstacleBottom._body;
     const groundBody = this._ground._body;
     if (
       detectCollision(birdBody, obstacleTopBody) ||
