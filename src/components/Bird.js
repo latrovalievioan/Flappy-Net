@@ -9,7 +9,7 @@ import config from "../config";
 export default class Bird extends Container {
   constructor() {
     super();
-    this._createBird();
+    this._createBody();
     this._animateFall(config.bird.fall);
     this._thrust();
     this.alive = true;
@@ -33,7 +33,7 @@ export default class Bird extends Container {
    * @method
    * @private
    */
-  _createBird() {
+  _createBody() {
     this.body = new Sprite.from("bird");
     this.body.anchor.set(0.5, 0.5);
     this.addChild(this.body);
