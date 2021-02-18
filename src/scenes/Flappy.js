@@ -95,7 +95,7 @@ export default class Flappy extends Container {
   _createScore() {
     this._score = new Score();
     this.addChild(this._score);
-    this._score.zIndex = 200;
+    this._score.zIndex = 1;
   }
   /**
    * @method Adds a new instance of title to the game.
@@ -104,7 +104,7 @@ export default class Flappy extends Container {
   _createTitle() {
     this.removeChild(this._title);
     this._title = new Title();
-    this._title.zIndex = 200;
+    this._title.zIndex = 1;
     this.addChild(this._title);
   }
   /**
