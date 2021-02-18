@@ -52,17 +52,18 @@ export function random(min, max) {
 }
 
 /**
- * @function Detects collision between two objects.
+ * @function Detects collision between two container bodies.
  * @private
  * @param {object} elem1
  * @param {object} elem2
  */
 export function detectCollision(elem1, elem2) {
   return (
-    elem1.x + elem1.width > elem2.x + elem2.width / 4 &&
-    elem1.x < elem2.x + elem2.width &&
-    elem1.y + elem1.height > elem2.y &&
-    elem1.y < elem2.y + elem2.height
+    elem1.getBounds().x + elem1.getBounds().width >
+      elem2.getBounds().x + elem2.getBounds().width / 4 &&
+    elem1.getBounds().x < elem2.getBounds().x + elem2.getBounds().width &&
+    elem1.getBounds().y + elem1.getBounds().height > elem2.getBounds().y &&
+    elem1.getBounds().y < elem2.getBounds().y + elem2.getBounds().height
   );
 }
 

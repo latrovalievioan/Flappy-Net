@@ -176,19 +176,14 @@ export default class Flappy extends Container {
     this._frameCounter++;
     this._updateObstaclesPosition();
     this._updateScore();
+    const birdBody = this._bird.body;
+    const obstacleTopBody = this._obstacles[0].obstacleTop._body;
+    const obstacleBottomBody = this._obstacles[0].obstacleBot._body;
+    const groundBody = this._ground._body;
     if (
-      detectCollision(
-        this._bird.body.getBounds(),
-        this._obstacles[0].obstacleTop._body.getBounds()
-      ) ||
-      detectCollision(
-        this._bird.body.getBounds(),
-        this._obstacles[0].obstacleBot._body.getBounds()
-      ) ||
-      detectCollision(
-        this._bird.body.getBounds(),
-        this._ground._body.getBounds()
-      )
+      detectCollision(birdBody, obstacleTopBody) ||
+      detectCollision(birdBody, obstacleBottomBody) ||
+      detectCollision(birdBody, groundBody)
     )
       this._endGame();
     else requestAnimationFrame(() => this._update());
