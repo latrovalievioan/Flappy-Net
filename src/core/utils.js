@@ -52,7 +52,7 @@ export function random(min, max) {
 }
 
 /**
- * @method Detects collision between two objects.
+ * @function Detects collision between two objects.
  * @private
  * @param {object} elem1
  * @param {object} elem2
@@ -66,6 +66,11 @@ export function detectCollision(elem1, elem2) {
   );
 }
 
+/**
+ * @function Scales a sprite's x and y by the same amount.
+ * @param {object} sprite
+ * @param {number} num
+ */
 export function scaleSprite(sprite, num) {
   sprite.scale.x = num;
   sprite.scale.y = num;
