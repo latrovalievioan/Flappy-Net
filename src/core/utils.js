@@ -52,7 +52,7 @@ export function random(min, max) {
 }
 
 /**
- * @function Detects collision between two container bodies.
+ * @function Detects collision between two display-objects.
  * @private
  * @param {object} elem1
  * @param {object} elem2
