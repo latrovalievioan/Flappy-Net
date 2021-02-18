@@ -27,6 +27,7 @@ export default class Flappy extends Container {
    * @method Starts the game.
    */
   startGame() {
+    Assets.sounds.over.stop();
     localStorage.setItem("currentScore", 0);
     this.removeChildren();
     this._createGround();
