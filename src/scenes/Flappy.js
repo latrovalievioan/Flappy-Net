@@ -1,16 +1,16 @@
 import { Container } from "pixi.js";
-import Bird from "./Bird";
-import ObstacleSet from "./ObstacleSet";
+import Bird from "../components/Bird";
+import ObstacleSet from "../components/ObstacleSet";
 import Assets from "../core/AssetManager";
-import Title from "./Title";
-import Score from "./Score";
-import EndScreen from "./EndScreen";
+import Title from "../components/Title";
+import Score from "../components/Score";
+import EndScreen from "../components/EndScreen";
 import config from "../config";
-import Feather from "./Feather";
+import Feather from "../components/Feather";
 import { random } from "../core/utils";
 import { delay } from "../core/utils";
 import { detectCollision } from "../core/utils";
-import Ground from "./Ground";
+import Ground from "../components/Ground";
 
 /**
  * @class Initializes a new instance of a Flappy game.

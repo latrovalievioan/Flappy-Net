@@ -1,5 +1,5 @@
 import Scene from "./Scene";
-import Flappy from "../components/Flappy";
+import Flappy from "./Flappy";
 
 export default class Play extends Scene {
   async onCreated() {
