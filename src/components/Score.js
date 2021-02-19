@@ -1,11 +1,14 @@
 import { Container, Sprite, Text, Graphics } from "pixi.js";
 import Assets from "../core/AssetManager";
-import config from "../config";
 /**
  * @class Initializes a new instance of an Obstacle Set.
  */
 export default class Score extends Container {
-  constructor() {
+  /**
+   * @constructor
+   * @param {object} config Configuration object.
+   */
+  constructor(config) {
     super();
     /**
      * Indicates the current score.
@@ -13,6 +16,12 @@ export default class Score extends Container {
      * @public
      */
     this.currentScore = 0;
+    /**
+     * Configurations object.
+     * @type {object}
+     * @private
+     */
+    this._config = config;
     this._createScore();
   }
   /**
@@ -24,8 +33,8 @@ export default class Score extends Container {
     background.anchor.set(0.5, 0.5);
     background.scale.x = 0.23;
     background.scale.y = 0.23;
-    background.y = -config.view.height / 2 + background.height / 2;
-    background.x = config.view.width / 3;
+    background.y = -this._config.view.height / 2 + background.height / 2;
+    background.x = this._config.view.width / 3;
     const score = new Text(`${this.currentScore}`, {
       fontFamily: "Arial Black",
       fontSize: 150,

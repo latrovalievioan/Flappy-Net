@@ -1,18 +1,28 @@
-import { Container } from "pixi.js";
+import { Container, TilingSprite } from "pixi.js";
 import Obstacle from "./Obstacle";
-import config from "../config";
 /**
  * @class Initializes a new instance of an Obstacle Set.
  */
 export default class ObstacleSet extends Container {
-  constructor() {
+  /**
+   * @constructor
+   * @param {object} config Configuration object.
+   */
+  constructor(config) {
     super();
+    /**
+     * Configurations object.
+     * @type {object}
+     * @private
+     */
+    this._config = config;
     /**
      * Indicates the distance between top and bottom obstacles.
      * @type {number}
      * @private
      */
-    this._hole = config.obstacleSet.hole;
+    this._hole = this._config.obstacleSet.hole;
+
     /**
      * Indicates the height of top obstacle.
      * @type {number}
@@ -24,9 +34,10 @@ export default class ObstacleSet extends Container {
      * @type {number}
      * @private
      */
-    this._bottomHeight = config.view.height - this._topHeight - this._hole;
+    this._bottomHeight =
+      this._config.view.height - this._topHeight - this._hole;
     this._createObstacles();
-    this.x = config.view.width / 2;
+    this.x = this._config.view.width / 2;
     /**
      * Indicates whether the obstacle set has been passed from the bird.
      * @type {boolean}
@@ -39,7 +50,7 @@ export default class ObstacleSet extends Container {
    * @method Moves the obstacle-set container.
    */
   move() {
-    this.x -= config.obstacleSet.speed;
+    this.x -= this._config.obstacleSet.speed;
   }
 
   /**
@@ -48,13 +59,15 @@ export default class ObstacleSet extends Container {
    */
   _createObstacles() {
     this.obstacleTop = new Obstacle(
-      -config.view.height / 2,
+      -this._config.view.height / 2,
       this._topHeight,
+      this._config.obstacle.width,
       Obstacle.positions.TOP
     );
     this.obstacleBottom = new Obstacle(
-      config.view.height / 2 - this._bottomHeight,
+      this._config.view.height / 2 - this._bottomHeight,
       this._bottomHeight,
+      this._config.obstacle.width,
       Obstacle.positions.BOTTOM
     );
     this.addChild(this.obstacleTop);
@@ -66,7 +79,8 @@ export default class ObstacleSet extends Container {
    */
   _randomInt() {
     return (
-      Math.floor(Math.random() * (config.view.height - this._hole - 50)) + 1
+      Math.floor(Math.random() * (this._config.view.height - this._hole - 50)) +
+      1
     );
   }
 }

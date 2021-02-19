@@ -1,10 +1,13 @@
 import { Container, Sprite, Graphics } from "pixi.js";
-import config from "../config";
 /**
  * @class Initializes a new instance of Title.
  */
 export default class Title extends Container {
-  constructor() {
+  /**
+   * @constructor
+   * @param {object} config Configuration object.
+   */
+  constructor(config) {
     super();
     this._createTitle();
     this._createBackground();

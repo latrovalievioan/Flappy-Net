@@ -1,4 +1,4 @@
-import { Container, TilingSprite } from "pixi.js";
+import { Container } from "pixi.js";
 import Bird from "../components/Bird";
 import ObstacleSet from "../components/ObstacleSet";
 import Assets from "../core/AssetManager";
@@ -57,7 +57,7 @@ export default class Flappy extends Container {
    * @private
    */
   _createFeathers() {
-    this._feathers = new Feather();
+    this._feathers = new Feather({ config: config.feather });
     this.addChild(this._feathers);
     this._feathers.x = this._bird.x;
     this._feathers.y = this._bird.y;
@@ -65,8 +65,7 @@ export default class Flappy extends Container {
       config.feather.minFeathersAmount,
       config.feather.maxFeathersAmount
     );
-    for (let i = 0; i < feathersAmount; i++)
-      this._feathers.createFeather(config.feather);
+    for (let i = 0; i < feathersAmount; i++) this._feathers.createFeather();
   }
 
   /**
@@ -94,7 +93,7 @@ export default class Flappy extends Container {
    * @private
    */
   _createGround() {
-    this._ground = new Ground();
+    this._ground = new Ground(config);
     this.addChild(this._ground);
   }
 
@@ -103,7 +102,7 @@ export default class Flappy extends Container {
    * @private
    */
   _createScore() {
-    this._score = new Score();
+    this._score = new Score(config);
     this.addChild(this._score);
     this._score.zIndex = 1;
   }
@@ -113,7 +112,7 @@ export default class Flappy extends Container {
    */
   _createTitle() {
     this.removeChild(this._title);
-    this._title = new Title();
+    this._title = new Title(config);
     this._title.zIndex = 1;
     this.addChild(this._title);
   }
@@ -132,7 +131,7 @@ export default class Flappy extends Container {
    * @private
    */
   _createObstacleSet() {
-    const _obstacleSet = new ObstacleSet();
+    const _obstacleSet = new ObstacleSet(config);
 
     this.addChild(_obstacleSet);
     this._obstacles.push(_obstacleSet);
@@ -208,7 +207,9 @@ export default class Flappy extends Container {
     Assets.sounds.hit.play();
     await delay(Assets.sounds.hit.duration() * 1000);
     Assets.sounds.over.play();
-    const endScreen = new EndScreen();
+    const endScreen = new EndScreen({
+      splitScale: config.endScreen.splitScale,
+    });
     this.addChild(endScreen);
     endScreen.show();
     this._bird.alive = false;

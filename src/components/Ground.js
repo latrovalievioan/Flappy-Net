@@ -1,25 +1,29 @@
 import { Container, Graphics } from "pixi.js";
-import config from "../config";
 
 /**
  * @class Initializes a new instance of Ground.
  */
 export default class Ground extends Container {
-  constructor() {
+  /**
+   * @constructor
+   * @param {object} config Configuration object.
+   */
+  constructor(config) {
     super();
+    this._config = config;
     this._createGround();
     /**
      * Indicates ground object's x position.
      * @type {number}
      * @public
      */
-    this.x = -config.view.width / 3;
+    this.x = -this._config.view.width / 3;
     /**
      * Indicates ground object's x position.
      * @type {number}
      * @public
      */
-    this.y = config.view.height / 2;
+    this.y = this._config.view.height / 2;
   }
 
   /**

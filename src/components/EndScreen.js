@@ -1,14 +1,20 @@
 import { Container, Graphics, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
-import config from "../config";
 import { scaleSprite } from "../core/utils";
 
 /**
  * @class Initializes a new instance of a EndScreen.
  */
 export default class EndScreen extends Container {
-  constructor() {
+  /**
+   * @constructor
+   * @param {{
+   * splitSclale : number
+   * }} Object - Configuration object.
+   */
+  constructor({ splitScale }) {
     super();
+    this._splitScale = splitScale;
     this._leftContainer = new Container();
     this.addChild(this._leftContainer);
 
@@ -47,7 +53,7 @@ export default class EndScreen extends Container {
   _createScore(container, scoreNum) {
     const score = new Text(scoreNum, {
       fontFamily: "Arial Black",
-      fontSize: 200 * config.endScreen.splitScale,
+      fontSize: 200 * this._splitScale,
       fill: 0x000000,
       align: "center",
     });
@@ -63,7 +69,7 @@ export default class EndScreen extends Container {
   _createBackground(container, spriteName) {
     const background = new Sprite.from(spriteName);
     background.anchor.set(0.5, 0.5);
-    scaleSprite(background, config.endScreen.splitScale);
+    scaleSprite(background, this._splitScale);
     container.addChild(background);
     this._backgroundWidth = background.width;
     this._backgroundHeight = background.height;
